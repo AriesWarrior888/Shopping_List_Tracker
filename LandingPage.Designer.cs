@@ -34,6 +34,7 @@ namespace Shopping_List_Tracker
             this.btnInventory = new System.Windows.Forms.Button();
             this.btnRecipe = new System.Windows.Forms.Button();
             this.grdPlan = new System.Windows.Forms.DataGridView();
+            this.btnClose = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.grdPlan)).BeginInit();
             this.SuspendLayout();
             // 
@@ -41,11 +42,11 @@ namespace Shopping_List_Tracker
             // 
             this.lblTitle.AutoSize = true;
             this.lblTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTitle.Location = new System.Drawing.Point(341, 39);
+            this.lblTitle.Location = new System.Drawing.Point(274, 30);
             this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(95, 46);
+            this.lblTitle.Size = new System.Drawing.Size(262, 46);
             this.lblTitle.TabIndex = 0;
-            this.lblTitle.Text = "Title";
+            this.lblTitle.Text = "Shopping List";
             // 
             // btnCalendar
             // 
@@ -55,6 +56,7 @@ namespace Shopping_List_Tracker
             this.btnCalendar.TabIndex = 2;
             this.btnCalendar.Text = "Calendar";
             this.btnCalendar.UseVisualStyleBackColor = true;
+            this.btnCalendar.Click += new System.EventHandler(this.btnCalendar_Click);
             // 
             // btnInventory
             // 
@@ -64,6 +66,7 @@ namespace Shopping_List_Tracker
             this.btnInventory.TabIndex = 3;
             this.btnInventory.Text = "Inventory";
             this.btnInventory.UseVisualStyleBackColor = true;
+            this.btnInventory.Click += new System.EventHandler(this.btnInventory_Click);
             // 
             // btnRecipe
             // 
@@ -86,11 +89,24 @@ namespace Shopping_List_Tracker
             this.grdPlan.Size = new System.Drawing.Size(462, 205);
             this.grdPlan.TabIndex = 5;
             // 
+            // btnClose
+            // 
+            this.btnClose.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnClose.ForeColor = System.Drawing.Color.Red;
+            this.btnClose.Location = new System.Drawing.Point(713, 415);
+            this.btnClose.Name = "btnClose";
+            this.btnClose.Size = new System.Drawing.Size(88, 37);
+            this.btnClose.TabIndex = 6;
+            this.btnClose.Text = "Close";
+            this.btnClose.UseVisualStyleBackColor = true;
+            this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
+            // 
             // LandingPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.btnClose);
             this.Controls.Add(this.grdPlan);
             this.Controls.Add(this.btnRecipe);
             this.Controls.Add(this.btnInventory);
@@ -112,6 +128,7 @@ namespace Shopping_List_Tracker
         private System.Windows.Forms.Button btnInventory;
         private System.Windows.Forms.Button btnRecipe;
         private System.Windows.Forms.DataGridView grdPlan;
+        private System.Windows.Forms.Button btnClose;
     }
 }
 

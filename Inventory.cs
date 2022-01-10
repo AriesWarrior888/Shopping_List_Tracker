@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace Shopping_List_Tracker
 {
-    public partial class Recipe : Form
+    public partial class Inventory : Form
     {
-        public Recipe()
+        public Inventory()
         {
             InitializeComponent();
         }

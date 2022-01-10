@@ -1,7 +1,7 @@
 ﻿
 namespace Shopping_List_Tracker
 {
-    partial class Recipe
+    partial class Inventory
     {
         /// <summary>
         /// Required designer variable.
@@ -31,12 +31,12 @@ namespace Shopping_List_Tracker
         {
             this.SuspendLayout();
             // 
-            // Recipe
+            // Inventory
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Name = "Recipe";
+            this.Name = "Inventory";
             this.ResumeLayout(false);
 
         }
