@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Shopping_List_Tracker
@@ -19,24 +12,52 @@ namespace Shopping_List_Tracker
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            Button btnDelete1 = new Button();
-            Button btnAdd1 = new Button();
-            TextBox txtDescription1 = new TextBox();
-            TextBox txtName1 = new TextBox();
+            //implement soon
+        }
 
-            btnAdd1.Size = btnAdd.Size;
-            btnAdd1.Click += new EventHandler(btnAdd_Click);
-            btnAdd1.Text = "Add";
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            int removalIndex = flpList.Controls.IndexOf((Control)sender);
+            for (int i = 5; i < 9; i++)
+            {
+                this.flpList.Controls.RemoveAt(removalIndex);
+            }
+        }
 
-            btnDelete1.Size = btnDelete.Size;
-            txtDescription1.Size = txtDescription.Size;
-            txtName1.Size = txtName.Size;
+/*        private void btnCreateRow_Click(object sender, EventArgs e, string Name, string Description, int Quantity, int servingCount)
+        {
 
-            this.flowLayoutPanel1.Controls.Add(btnDelete1);
-            this.flowLayoutPanel1.Controls.Add(txtDescription1);
-            this.flowLayoutPanel1.Controls.Add(txtName1);
-            this.flowLayoutPanel1.Controls.Add(btnAdd1);
+        }*/
+        private void btnCreateRow_Click(object sender, EventArgs e)
+        {
+            Button btnNewDeleteButton = new Button();
+            Button btnNewAddButton = new Button();
+            TextBox txtNewDescription = new TextBox();
+            Button btnNewRecipe = new Button();
 
+            //Add button
+            btnNewAddButton.Size = this.btnAdd.Size;
+            btnNewAddButton.Click += new EventHandler(btnAdd_Click);
+            btnNewAddButton.Text = "Add";
+
+            //Delete Button
+            btnNewDeleteButton.Size = this.btnDelete.Size;
+            btnNewDeleteButton.Text = "Delete";
+            btnNewDeleteButton.Click += new EventHandler(this.btnDelete_Click);
+
+            //Description
+            txtNewDescription.Size = this.txtDescription.Size;
+
+            //Name of Recipe
+            btnNewRecipe.Size = this.btnRecipe.Size;
+            btnNewRecipe.Text = "Recipe";
+
+
+            //Adding to the Flow Layout Panel
+            this.flpList.Controls.Add(btnNewDeleteButton);
+            this.flpList.Controls.Add(btnNewRecipe);
+            this.flpList.Controls.Add(txtNewDescription);
+            this.flpList.Controls.Add(btnNewAddButton);
         }
     }
 }
