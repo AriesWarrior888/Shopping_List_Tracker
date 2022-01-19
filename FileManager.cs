@@ -18,6 +18,7 @@ namespace Shopping_List_Tracker
                 results = File.ReadAllText(path);
                 return true;
             }
+
             catch(Exception e)
             {
                 Console.WriteLine($"Failed to read from file {fileName} with exception {e}");
@@ -35,6 +36,7 @@ namespace Shopping_List_Tracker
                 File.WriteAllText(path, contents);
                 return true;
             }
+
             catch(Exception e)
             {
                 Console.WriteLine($"Writing to write to file {fileName} with exception {e}");

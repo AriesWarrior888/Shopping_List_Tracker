@@ -1,7 +1,7 @@
 ﻿
 namespace Shopping_List_Tracker
 {
-    partial class Recipe
+    partial class Recipes
     {
         /// <summary>
         /// Required designer variable.
@@ -31,10 +31,10 @@ namespace Shopping_List_Tracker
         {
             this.flpList = new System.Windows.Forms.FlowLayoutPanel();
             this.btnDelete = new System.Windows.Forms.Button();
-            this.txtDescription = new System.Windows.Forms.TextBox();
+            this.btnRecipe = new System.Windows.Forms.Button();
             this.btnAdd = new System.Windows.Forms.Button();
             this.btnCreateRow = new System.Windows.Forms.Button();
-            this.btnRecipe = new System.Windows.Forms.Button();
+            this.txtDescription = new System.Windows.Forms.TextBox();
             this.flpList.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -59,18 +59,18 @@ namespace Shopping_List_Tracker
             this.btnDelete.UseVisualStyleBackColor = true;
             this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
-            // txtDescription
+            // btnRecipe
             // 
-            this.txtDescription.Location = new System.Drawing.Point(262, 3);
-            this.txtDescription.Multiline = true;
-            this.txtDescription.Name = "txtDescription";
-            this.txtDescription.Size = new System.Drawing.Size(302, 45);
-            this.txtDescription.TabIndex = 2;
-            this.txtDescription.Text = "\r\n\r\n";
+            this.btnRecipe.Location = new System.Drawing.Point(111, 3);
+            this.btnRecipe.Name = "btnRecipe";
+            this.btnRecipe.Size = new System.Drawing.Size(145, 45);
+            this.btnRecipe.TabIndex = 4;
+            this.btnRecipe.Text = "Recipe";
+            this.btnRecipe.UseVisualStyleBackColor = true;
             // 
             // btnAdd
             // 
-            this.btnAdd.Location = new System.Drawing.Point(570, 3);
+            this.btnAdd.Location = new System.Drawing.Point(578, 3);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(50, 45);
             this.btnAdd.TabIndex = 3;
@@ -88,23 +88,22 @@ namespace Shopping_List_Tracker
             this.btnCreateRow.UseVisualStyleBackColor = true;
             this.btnCreateRow.Click += new System.EventHandler(this.btnCreateRow_Click);
             // 
-            // btnRecipe
+            // txtDescription
             // 
-            this.btnRecipe.Location = new System.Drawing.Point(111, 3);
-            this.btnRecipe.Name = "btnRecipe";
-            this.btnRecipe.Size = new System.Drawing.Size(145, 45);
-            this.btnRecipe.TabIndex = 4;
-            this.btnRecipe.Text = "Recipe";
-            this.btnRecipe.UseVisualStyleBackColor = true;
+            this.txtDescription.Font = new System.Drawing.Font("Arial Narrow", 24.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtDescription.Location = new System.Drawing.Point(262, 3);
+            this.txtDescription.Name = "txtDescription";
+            this.txtDescription.Size = new System.Drawing.Size(310, 45);
+            this.txtDescription.TabIndex = 5;
             // 
-            // Recipe
+            // Recipes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.btnCreateRow);
             this.Controls.Add(this.flpList);
-            this.Name = "Recipe";
+            this.Name = "Recipes";
             this.flpList.ResumeLayout(false);
             this.flpList.PerformLayout();
             this.ResumeLayout(false);
@@ -115,9 +114,9 @@ namespace Shopping_List_Tracker
 
         private System.Windows.Forms.FlowLayoutPanel flpList;
         private System.Windows.Forms.Button btnDelete;
-        private System.Windows.Forms.TextBox txtDescription;
         private System.Windows.Forms.Button btnAdd;
         private System.Windows.Forms.Button btnCreateRow;
         private System.Windows.Forms.Button btnRecipe;
+        private System.Windows.Forms.TextBox txtDescription;
     }
 }

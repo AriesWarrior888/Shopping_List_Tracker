@@ -38,7 +38,7 @@ namespace Shopping_List_Tracker
 
         private void btnRecipe_Click(object sender, EventArgs e)
         {
-            Recipe frmRecipe = new Recipe();
+            Recipes frmRecipe = new Recipes();
             frmRecipe.ShowDialog();
         }
 
