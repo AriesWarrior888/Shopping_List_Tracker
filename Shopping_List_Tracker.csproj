@@ -67,6 +67,7 @@
     <Compile Include="Calendar.Designer.cs">
       <DependentUpon>Calendar.cs</DependentUpon>
     </Compile>
+    <Compile Include="Ingredient.cs" />
     <Compile Include="CreateRecipe.cs">
       <SubType>Form</SubType>
     </Compile>

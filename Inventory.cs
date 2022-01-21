@@ -16,5 +16,52 @@ namespace Shopping_List_Tracker
         {
             InitializeComponent();
         }
+
+        private void Inventory_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            int removalIndex = flpInventory.Controls.IndexOf((Control)sender);
+            for (int i = 5; i < 9; i++)
+            {
+                this.flpInventory.Controls.RemoveAt(removalIndex);
+            }
+        }
+
+        private void btnAdd_Click(object sender, EventArgs e)
+        {
+            Button btnNewDeleteButton = new Button();
+            Button txtNewQty = new Button();
+            TextBox txtNewName = new TextBox();
+            TextBox txtNewUOM = new TextBox();
+
+            //QTY box
+            txtNewQty.Size = this.btnAdd.Size;
+            txtNewQty.Font = new System.Drawing.Font("Arial", 8);
+
+            //Delete Button
+            btnNewDeleteButton.Size = this.btnDelete.Size;
+            btnNewDeleteButton.Text = "Delete";
+            btnNewDeleteButton.Click += new EventHandler(this.btnDelete_Click);
+
+            //Description box
+            txtNewName.Size = this.txtName.Size;
+            txtNewName.Font = new System.Drawing.Font("Arial", 8);
+
+            //UOM box
+            txtNewUOM.Size = this.txtUOM.Size;
+            txtNewUOM.Font = new System.Drawing.Font("Arial", 8);
+            txtNewUOM.Enabled = false;
+
+
+            //Adding to the Flow Layout Panel
+            this.flpInventory.Controls.Add(txtNewName);
+            this.flpInventory.Controls.Add(txtNewQty);
+            this.flpInventory.Controls.Add(txtNewUOM);
+            this.flpInventory.Controls.Add(btnNewDeleteButton);
+        }
     }
 }

@@ -29,6 +29,8 @@ namespace Shopping_List_Tracker
         {
             CreateRecipe frmCreateRecipe = new CreateRecipe();
             frmCreateRecipe.ShowDialog();
+
+            //if returns true
             formatBoxes();
         }
 
