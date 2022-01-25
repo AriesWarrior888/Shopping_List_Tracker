@@ -30,12 +30,6 @@ namespace Shopping_List_Tracker
             CreateRecipe frmCreateRecipe = new CreateRecipe();
             frmCreateRecipe.ShowDialog();
 
-            //if returns true
-            formatBoxes();
-        }
-
-        private void formatBoxes()
-        {
             Button btnNewDeleteButton = new Button();
             Button btnNewAddButton = new Button();
             TextBox txtNewDescription = new TextBox();
@@ -65,6 +59,8 @@ namespace Shopping_List_Tracker
             this.flpList.Controls.Add(btnNewRecipe);
             this.flpList.Controls.Add(txtNewDescription);
             this.flpList.Controls.Add(btnNewAddButton);
+
+            
         }
     }
 }

@@ -10,8 +10,7 @@ namespace Shopping_List_Tracker
     {
         private string name;
         private int qty;
-        private UnitOfMeasurement measurement;
-        private enum UnitOfMeasurement
+        public enum UnitOfMeasurement
         {
             Cup = 0,
             Ounce = 1,
@@ -20,6 +19,8 @@ namespace Shopping_List_Tracker
             Tablespoon = 4,
             Teaspoon = 5,
         }
+
+        private UnitOfMeasurement measurement;
 
         public Ingredient(string name, int qty, UnitOfMeasurement uom)
         {
