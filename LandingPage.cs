@@ -22,6 +22,7 @@ namespace Shopping_List_Tracker
 
         public void setControls()
         {
+            this.CenterToScreen();
             //lables
             lblTitle.Text = "Shopping List";
             //form

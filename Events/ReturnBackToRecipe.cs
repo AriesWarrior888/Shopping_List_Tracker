@@ -2,23 +2,25 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Data;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace Shopping_List_Tracker.Events
 {
-    class ReturnBackToRecipeEventArgs : EventArgs
+    public class ReturnBackToRecipeEventArgs : EventArgs
     {
-        private Recipe _recipe = null;
-        public ReturnBackToRecipeEventArgs(Recipe recipe)
+        private List<Control> _list= null;
+        public ReturnBackToRecipeEventArgs(List<Control> list)
         {
-            _recipe = recipe;
+            _list = list;
         }
 
-        public Recipe getRecipe
+        public List<Control> GetList
         {
             get
             {
-                return _recipe;
+                return _list;
             }
         }
     }

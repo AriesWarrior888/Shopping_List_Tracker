@@ -19,7 +19,7 @@ namespace Shopping_List_Tracker
 
         private void Inventory_Load(object sender, EventArgs e)
         {
-
+            //FileManager.ReadFromFile("Ingredients.dat", out string json);
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
@@ -34,12 +34,12 @@ namespace Shopping_List_Tracker
         private void btnAdd_Click(object sender, EventArgs e)
         {
             Button btnNewDeleteButton = new Button();
-            Button txtNewQty = new Button();
+            TextBox txtNewQty = new TextBox();
             TextBox txtNewName = new TextBox();
             TextBox txtNewUOM = new TextBox();
 
             //QTY box
-            txtNewQty.Size = this.btnAdd.Size;
+            txtNewQty.Size = this.txtQty.Size;
             txtNewQty.Font = new System.Drawing.Font("Arial", 8);
 
             //Delete Button

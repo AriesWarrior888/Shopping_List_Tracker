@@ -30,62 +30,16 @@ namespace Shopping_List_Tracker
         private void InitializeComponent()
         {
             this.flpList = new System.Windows.Forms.FlowLayoutPanel();
-            this.btnDelete = new System.Windows.Forms.Button();
-            this.btnRecipe = new System.Windows.Forms.Button();
-            this.txtDescription = new System.Windows.Forms.TextBox();
-            this.btnAdd = new System.Windows.Forms.Button();
             this.btnCreateRow = new System.Windows.Forms.Button();
-            this.flpList.SuspendLayout();
             this.SuspendLayout();
             // 
             // flpList
             // 
             this.flpList.AutoScroll = true;
-            this.flpList.Controls.Add(this.btnDelete);
-            this.flpList.Controls.Add(this.btnRecipe);
-            this.flpList.Controls.Add(this.txtDescription);
-            this.flpList.Controls.Add(this.btnAdd);
             this.flpList.Location = new System.Drawing.Point(12, 12);
             this.flpList.Name = "flpList";
             this.flpList.Size = new System.Drawing.Size(637, 426);
             this.flpList.TabIndex = 0;
-            // 
-            // btnDelete
-            // 
-            this.btnDelete.Location = new System.Drawing.Point(3, 3);
-            this.btnDelete.Name = "btnDelete";
-            this.btnDelete.Size = new System.Drawing.Size(102, 45);
-            this.btnDelete.TabIndex = 0;
-            this.btnDelete.Text = "Delete";
-            this.btnDelete.UseVisualStyleBackColor = true;
-            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
-            // 
-            // btnRecipe
-            // 
-            this.btnRecipe.Location = new System.Drawing.Point(111, 3);
-            this.btnRecipe.Name = "btnRecipe";
-            this.btnRecipe.Size = new System.Drawing.Size(145, 45);
-            this.btnRecipe.TabIndex = 4;
-            this.btnRecipe.Text = "Recipe";
-            this.btnRecipe.UseVisualStyleBackColor = true;
-            // 
-            // txtDescription
-            // 
-            this.txtDescription.Font = new System.Drawing.Font("Arial Narrow", 24.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtDescription.Location = new System.Drawing.Point(262, 3);
-            this.txtDescription.Name = "txtDescription";
-            this.txtDescription.Size = new System.Drawing.Size(310, 45);
-            this.txtDescription.TabIndex = 5;
-            // 
-            // btnAdd
-            // 
-            this.btnAdd.Location = new System.Drawing.Point(578, 3);
-            this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new System.Drawing.Size(50, 45);
-            this.btnAdd.TabIndex = 3;
-            this.btnAdd.Text = "Add";
-            this.btnAdd.UseVisualStyleBackColor = true;
-            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
             // btnCreateRow
             // 
@@ -105,8 +59,7 @@ namespace Shopping_List_Tracker
             this.Controls.Add(this.btnCreateRow);
             this.Controls.Add(this.flpList);
             this.Name = "Recipes";
-            this.flpList.ResumeLayout(false);
-            this.flpList.PerformLayout();
+            this.Load += new System.EventHandler(this.Recipes_Load);
             this.ResumeLayout(false);
 
         }
@@ -114,10 +67,6 @@ namespace Shopping_List_Tracker
         #endregion
 
         private System.Windows.Forms.FlowLayoutPanel flpList;
-        private System.Windows.Forms.Button btnDelete;
-        private System.Windows.Forms.Button btnAdd;
         private System.Windows.Forms.Button btnCreateRow;
-        private System.Windows.Forms.Button btnRecipe;
-        private System.Windows.Forms.TextBox txtDescription;
     }
 }

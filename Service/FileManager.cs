@@ -39,7 +39,7 @@ namespace Shopping_List_Tracker
 
             catch(Exception e)
             {
-                Console.WriteLine($"Writing to write to file {fileName} with exception {e}");
+                Console.WriteLine($"Failed in writing to write to file {fileName} with exception {e}");
                 return false;
             }
         }

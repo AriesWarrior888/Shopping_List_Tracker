@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Shopping_List_Tracker
 {
-    class Ingredient
+    public class Ingredient
     {
         private string name;
         private int qty;

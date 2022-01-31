@@ -31,11 +31,11 @@ namespace Shopping_List_Tracker
         {
             this.lblInventory = new System.Windows.Forms.Label();
             this.flpInventory = new System.Windows.Forms.FlowLayoutPanel();
-            this.btnAdd = new System.Windows.Forms.Button();
             this.txtName = new System.Windows.Forms.TextBox();
             this.txtQty = new System.Windows.Forms.TextBox();
             this.txtUOM = new System.Windows.Forms.TextBox();
             this.btnDelete = new System.Windows.Forms.Button();
+            this.btnAdd = new System.Windows.Forms.Button();
             this.flpInventory.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -50,7 +50,8 @@ namespace Shopping_List_Tracker
             // 
             // flpInventory
             // 
-            this.flpInventory.AutoSize = true;
+            this.flpInventory.AutoScroll = true;
+            this.flpInventory.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.flpInventory.Controls.Add(this.txtName);
             this.flpInventory.Controls.Add(this.txtQty);
             this.flpInventory.Controls.Add(this.txtUOM);
@@ -60,16 +61,6 @@ namespace Shopping_List_Tracker
             this.flpInventory.Name = "flpInventory";
             this.flpInventory.Size = new System.Drawing.Size(627, 343);
             this.flpInventory.TabIndex = 1;
-            // 
-            // btnAdd
-            // 
-            this.btnAdd.Location = new System.Drawing.Point(649, 402);
-            this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new System.Drawing.Size(75, 23);
-            this.btnAdd.TabIndex = 2;
-            this.btnAdd.Text = "+";
-            this.btnAdd.UseVisualStyleBackColor = true;
-            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
             // txtName
             // 
@@ -105,6 +96,16 @@ namespace Shopping_List_Tracker
             this.btnDelete.Text = "Delete";
             this.btnDelete.UseVisualStyleBackColor = true;
             this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
+            // 
+            // btnAdd
+            // 
+            this.btnAdd.Location = new System.Drawing.Point(649, 402);
+            this.btnAdd.Name = "btnAdd";
+            this.btnAdd.Size = new System.Drawing.Size(75, 23);
+            this.btnAdd.TabIndex = 2;
+            this.btnAdd.Text = "+";
+            this.btnAdd.UseVisualStyleBackColor = true;
+            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
             // Inventory
             // 

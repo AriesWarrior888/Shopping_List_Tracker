@@ -1,10 +1,15 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
+using Shopping_List_Tracker.Events;
 
 namespace Shopping_List_Tracker
 {
     public partial class Recipes : Form
     {
+        public List<Control> updatedControlList;
+        public List<Control> currentControlList;
+        Dictionary<int, List<Control>> recipeValues;
         public Recipes()
         {
             InitializeComponent();
@@ -27,30 +32,28 @@ namespace Shopping_List_Tracker
 
         private void btnCreateRow_Click(object sender, EventArgs e)
         {
-            CreateRecipe frmCreateRecipe = new CreateRecipe();
-            frmCreateRecipe.ShowDialog();
-
             Button btnNewDeleteButton = new Button();
             Button btnNewAddButton = new Button();
             TextBox txtNewDescription = new TextBox();
             Button btnNewRecipe = new Button();
 
             //Add button
-            btnNewAddButton.Size = this.btnAdd.Size;
+            btnNewAddButton.Size = new System.Drawing.Size(107, 38);
             btnNewAddButton.Click += new EventHandler(btnAdd_Click);
             btnNewAddButton.Text = "Add";
 
             //Delete Button
-            btnNewDeleteButton.Size = this.btnDelete.Size;
+            btnNewDeleteButton.Size = new System.Drawing.Size(107, 38);
             btnNewDeleteButton.Text = "Delete";
             btnNewDeleteButton.Click += new EventHandler(this.btnDelete_Click);
 
             //Description
-            txtNewDescription.Size = this.txtDescription.Size;
-            txtNewDescription.Font = new System.Drawing.Font("Arial", 25);
+            txtNewDescription.Size = new System.Drawing.Size(275, 38);
+            txtNewDescription.Font = new System.Drawing.Font("Arial", 20);
 
             //Name of Recipe
-            btnNewRecipe.Size = this.btnRecipe.Size;
+            btnNewRecipe.Size = new System.Drawing.Size(107, 38);
+            btnNewRecipe.Click += new EventHandler(this.btnRecipe_Click);
             btnNewRecipe.Text = "Recipe";
 
 
@@ -60,6 +63,59 @@ namespace Shopping_List_Tracker
             this.flpList.Controls.Add(txtNewDescription);
             this.flpList.Controls.Add(btnNewAddButton);
 
+            //Adding to current List
+
+            this.currentControlList.Add(btnNewDeleteButton);
+            this.currentControlList.Add(btnNewRecipe);
+            this.currentControlList.Add(txtNewDescription);
+            this.currentControlList.Add(btnNewAddButton);
+
+
+            CreateRecipe frmCreateRecipe = new CreateRecipe();
+            frmCreateRecipe.UpdateDataBoxes += new CreateRecipe.UpdateRecipeData(FillInData);
+            frmCreateRecipe.ShowDialog();
+
+            
+        }
+
+        public void FillInData(object sender, ReturnBackToRecipeEventArgs e)
+        {
+
+            updatedControlList = e.GetList;
+            recipeValues = new Dictionary<int, List<Control>>();
+            recipeValues.Add(currentControlList.Count/4 - 1,updatedControlList);
+
+            currentControlList[currentControlList.Count - 3].Text = updatedControlList[0].Text;
+            currentControlList[currentControlList.Count - 2].Text = updatedControlList[2].Text;
+
+        }
+
+        private void Recipes_Load(object sender, EventArgs e)
+        {
+            setControls();
+        }
+
+        public void setControls()
+        {
+            currentControlList = new List<Control>();
+        }
+
+        private void btnRecipe_Click(object sender, EventArgs e)
+        {
+            if (flpList.Controls[1].Text.Equals("Recipe")) 
+            {
+                MessageBox.Show("Recipe is Null");
+                return;
+            }
+            else
+            {
+                int objectLocation = flpList.Controls.IndexOf((Control)sender)/4;
+                CreateRecipe frmCreateRecipe = new CreateRecipe();
+                frmCreateRecipe.receiveAndSet(recipeValues[objectLocation]);
+                frmCreateRecipe.ShowDialog();
+                
+
+            }
             
         }
     }

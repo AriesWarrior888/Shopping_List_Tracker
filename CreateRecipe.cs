@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Shopping_List_Tracker.Events;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -13,6 +14,12 @@ namespace Shopping_List_Tracker
     public partial class CreateRecipe : Form
     {
         private List<Control> controlList = new List<Control>();
+
+        public delegate void UpdateRecipeData(object sender, ReturnBackToRecipeEventArgs e);
+
+        public event UpdateRecipeData UpdateDataBoxes;
+
+         
         public CreateRecipe()
         {
             InitializeComponent();
@@ -23,7 +30,7 @@ namespace Shopping_List_Tracker
             controlList.Add(txtName);
             controlList.Add(txtServingCount);
             controlList.Add(txtDescription);
-            
+
             controlList.Add(txtIngredient);
             controlList.Add(txtQTY);
         }
@@ -53,7 +60,32 @@ namespace Shopping_List_Tracker
             flpList.Controls.Add(temp);
         }
 
+        public void tempCreateClick(string ingredientName, string quantity)
+        {
+            Button temp = new Button();
+            TextBox txtNewName = new TextBox();
+            TextBox txtNewQty = new TextBox();
 
+            //Ingredient
+            txtNewName.Size = this.txtIngredient.Size;
+            txtNewName.Text = ingredientName;
+            txtNewName.Font = new System.Drawing.Font("Arial", 8);
+
+            //qty
+            txtNewQty.Size = this.txtQTY.Size;
+            txtNewQty.Text = quantity;
+            txtNewQty.Font = new System.Drawing.Font("Arial", 8);
+
+            //button
+            temp = this.btnCreate;
+
+            //adding to flow layout panel
+            flpList.Controls.Add(txtNewName);
+            controlList.Add(txtNewName);
+            flpList.Controls.Add(txtNewQty);
+            controlList.Add(txtNewQty);
+            flpList.Controls.Add(temp);
+        }
 
         private void btnSave_Click(object sender, EventArgs e)
         {
@@ -66,39 +98,36 @@ namespace Shopping_List_Tracker
                 }
             }
 
+            List<Control> controls = new List<Control>();
+            
+            controls = controlList;
 
+            ReturnBackToRecipeEventArgs args = new ReturnBackToRecipeEventArgs(controls);
 
+            UpdateDataBoxes(this, args);
+
+            this.Dispose();
         }
 
+        public void receiveAndSet( List<Control> controls)
+        {
+            txtName.Text = controls[0].Text;
+            txtServingCount.Text = controls[1].Text;
+            txtDescription.Text = controls[2].Text;
+            txtIngredient.Text = controls[3].Text;
+            txtQTY.Text = controls[4].Text;
+            if(controls.Count > 5)
+            {
+                for (int i = 5; i+3 < controls.Count; i += 2)
+                {
+                    tempCreateClick(controls[i].Text,controls[i+1].Text);
+
+                }
+            }
+        }
         private void btnCancel_Click(object sender, EventArgs e)
         {
             //delegate things
-        }
-
-
-        public string getRecipeName()
-        {
-            return this.txtName.Text;
-        }
-
-        public int getServingCount()
-        {
-            return int.Parse(txtServingCount.Text);
-        }
-
-        public string getDescription()
-        {
-            return this.txtDescription.Text;
-        }
-
-        public string getIngredientName()
-        {
-            return this.txtIngredient.Text;
-        }
-
-        public int getIngredientQty()
-        {
-            return int.Parse(this.txtQTY.Text);
         }
     }
 }

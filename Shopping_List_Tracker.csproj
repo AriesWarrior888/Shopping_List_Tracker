@@ -76,6 +76,7 @@
     </Compile>
     <Compile Include="Classes\Recipe.cs" />
     <Compile Include="Events\ReturnBackToRecipe.cs" />
+    <Compile Include="Service\GenerateRecipe.cs" />
     <Compile Include="Service\FileManager.cs" />
     <Compile Include="Inventory.cs">
       <SubType>Form</SubType>
