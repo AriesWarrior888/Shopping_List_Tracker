@@ -25,6 +25,12 @@ namespace Shopping_List_Tracker
             InitializeComponent();
         }
 
+        public CreateRecipe(List<Control> controls)
+        {
+            InitializeComponent();
+            receiveAndSet(controls);
+        }
+
         private void frmRecipe_Load(object sender, EventArgs e)
         {
             controlList.Add(txtName);
@@ -106,7 +112,7 @@ namespace Shopping_List_Tracker
 
             UpdateDataBoxes(this, args);
 
-            this.Dispose();
+            this.Close();
         }
 
         public void receiveAndSet( List<Control> controls)
@@ -118,9 +124,9 @@ namespace Shopping_List_Tracker
             txtQTY.Text = controls[4].Text;
             if(controls.Count > 5)
             {
-                for (int i = 5; i+3 < controls.Count; i += 2)
+                for (int i = 4; i+2 < controls.Count; i += 2)
                 {
-                    tempCreateClick(controls[i].Text,controls[i+1].Text);
+                    tempCreateClick(controls[i+1].Text, controls[i+2].Text);
 
                 }
             }
