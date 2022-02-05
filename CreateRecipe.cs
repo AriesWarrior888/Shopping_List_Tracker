@@ -25,10 +25,10 @@ namespace Shopping_List_Tracker
             InitializeComponent();
         }
 
-        public CreateRecipe(List<Control> controls)
+        public CreateRecipe(Recipe recipe)
         {
             InitializeComponent();
-            receiveAndSet(controls);
+            receiveAndSet(recipe);
         }
 
         private void frmRecipe_Load(object sender, EventArgs e)
@@ -66,7 +66,7 @@ namespace Shopping_List_Tracker
             flpList.Controls.Add(temp);
         }
 
-        public void tempCreateClick(string ingredientName, string quantity)
+        public void tempCreateClick(Ingredient ingredient)
         {
             Button temp = new Button();
             TextBox txtNewName = new TextBox();
@@ -74,12 +74,12 @@ namespace Shopping_List_Tracker
 
             //Ingredient
             txtNewName.Size = this.txtIngredient.Size;
-            txtNewName.Text = ingredientName;
+            txtNewName.Text = ingredient.name;
             txtNewName.Font = new System.Drawing.Font("Arial", 8);
 
             //qty
             txtNewQty.Size = this.txtQTY.Size;
-            txtNewQty.Text = quantity;
+            txtNewQty.Text = ""+ingredient.qty;
             txtNewQty.Font = new System.Drawing.Font("Arial", 8);
 
             //button
@@ -102,6 +102,7 @@ namespace Shopping_List_Tracker
                     MessageBox.Show($"field {control.Name} is empty");
                     return;
                 }
+                //if nothign has changed, meesageBaxShow(please change something before saving)
             }
 
             List<Control> controls = new List<Control>();
@@ -115,25 +116,21 @@ namespace Shopping_List_Tracker
             this.Close();
         }
 
-        public void receiveAndSet( List<Control> controls)
+        public void receiveAndSet( Recipe recipe)
         {
-            txtName.Text = controls[0].Text;
-            txtServingCount.Text = controls[1].Text;
-            txtDescription.Text = controls[2].Text;
-            txtIngredient.Text = controls[3].Text;
-            txtQTY.Text = controls[4].Text;
-            if(controls.Count > 5)
+            txtName.Text = recipe.getName();
+            txtServingCount.Text = ""+recipe.getServingAmount();
+            txtDescription.Text = recipe.getDescription();
+            txtIngredient.Text = recipe.getIngredients()[0].name;
+            txtQTY.Text = "" + recipe.getIngredients()[0].qty;
+            for (int i = 1; i < recipe.getIngredients().Count; i++)
             {
-                for (int i = 4; i+2 < controls.Count; i += 2)
-                {
-                    tempCreateClick(controls[i+1].Text, controls[i+2].Text);
-
-                }
+                tempCreateClick(recipe.getIngredients()[i]);
             }
         }
         private void btnCancel_Click(object sender, EventArgs e)
         {
-            //delegate things
+            this.Dispose();
         }
     }
 }

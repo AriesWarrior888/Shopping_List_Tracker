@@ -8,8 +8,14 @@ namespace Shopping_List_Tracker
 {
     public class Ingredient
     {
-        private string name;
-        private int qty;
+        public string name
+        {
+            get;set;
+        }
+        public int qty
+        {
+            get;set;
+        }
         public enum UnitOfMeasurement
         {
             Cup = 0,
@@ -22,6 +28,12 @@ namespace Shopping_List_Tracker
 
         private UnitOfMeasurement measurement;
 
+        public Ingredient()
+        {
+            name = "";
+            qty = 0;
+
+        }
         public Ingredient(string name, int qty, UnitOfMeasurement uom)
         {
             this.name = name;

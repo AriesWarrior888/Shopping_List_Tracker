@@ -9,7 +9,7 @@ namespace Shopping_List_Tracker
     {
         public List<Control> updatedControlList;
         public List<Control> currentControlList;
-        Dictionary<int, List<Control>> recipeValues = new Dictionary<int, List<Control>>();
+        Dictionary<string, Recipe> recipeValues = new Dictionary<string, Recipe>();
         int objectPlacement = -1;
         public Recipes()
         {
@@ -25,15 +25,7 @@ namespace Shopping_List_Tracker
         private void btnDelete_Click(object sender, EventArgs e)
         {
             int removalIndex = flpList.Controls.IndexOf((Control)sender);
-            if (recipeValues.Remove(removalIndex / 4))
-            {
-                int tempIndex = removalIndex / 4;
-                for(int i = tempIndex; i < recipeValues.Count; i++)
-                {
-                    recipeValues.Add(i, recipeValues[i + 1]);
-                    recipeValues.Remove(i + 1);
-                }
-            }
+            recipeValues.Remove(currentControlList[removalIndex + 1].Text);
             for (int i = 5; i < 9; i++)
             {
                 this.flpList.Controls.RemoveAt(removalIndex);
@@ -95,20 +87,18 @@ namespace Shopping_List_Tracker
             updatedControlList = e.GetList; 
             if (objectPlacement == -1)
             {
-                recipeValues.Add(currentControlList.Count / 4 - 1, updatedControlList);
-            }
-            else
-            {
-                if(recipeValues.Remove(objectPlacement))
+                Recipe recipe = new Recipe(updatedControlList[0].Text, Int32.Parse(updatedControlList[1].Text), updatedControlList[2].Text);
+                for (int i = 3; i + 2 <= updatedControlList.Count; i += 2)
                 {
-                    recipeValues.Add(objectPlacement, updatedControlList);
+                    Ingredient ingredients = new Ingredient();
+                    ingredients.name = updatedControlList[i].Text;
+                    ingredients.qty = Int32.Parse(updatedControlList[i + 1].Text);
+                    recipe.addIngredients(ingredients);
                 }
+                recipeValues.Add(recipe.getName(), recipe);
             }
-
-
-            currentControlList[currentControlList.Count - 3].Text = updatedControlList[0].Text;
+            currentControlList[currentControlList.Count - 3].Text = updatedControlList[1].Text;
             currentControlList[currentControlList.Count - 2].Text = updatedControlList[2].Text;
-
         }
 
         private void Recipes_Load(object sender, EventArgs e)
@@ -129,17 +119,10 @@ namespace Shopping_List_Tracker
                 return;
             }
             else
-            {
-                
-                int objectLocation = flpList.Controls.IndexOf((Control)sender)/4;
-                objectPlacement = flpList.Controls.IndexOf((Control)sender)/4;
-                CreateRecipe frmCreateRecipe = new CreateRecipe(recipeValues[objectLocation]);
+            {          
+                CreateRecipe frmCreateRecipe = new CreateRecipe(recipeValues[currentControlList[flpList.Controls.IndexOf((Control)sender)+1].Text]);
                 frmCreateRecipe.UpdateDataBoxes += new CreateRecipe.UpdateRecipeData(FillInData);
                 frmCreateRecipe.ShowDialog();
-                frmCreateRecipe.receiveAndSet(recipeValues[objectLocation]);
-
-                
-
             }
             
         }

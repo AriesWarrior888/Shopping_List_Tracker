@@ -8,33 +8,49 @@ namespace Shopping_List_Tracker
 {
     public class Recipe
     {
-        private string name
-        {
-            get;set;
-        }
-        private int servingAmount
-        {
-            get;set;
-        }
-/*        private List<Ingredient> ingredients
-        {
-            get;set;
-        }*/
-        private string description
-        {
-            get;set;
-        }
-        public Recipe(string name, int servingAmount, string description)
-        {
-            this.name = name;
-            this.servingAmount = servingAmount;
-            this.description = description;
-        }
+        private List<Ingredient> ingredients = new List<Ingredient>();
         public Recipe()
         {
             name = "";
             servingAmount = 0;
             description = "";
         }
+
+        public Recipe(string name, int servingAmount, string description)
+        {
+            this.name = name;
+            this.servingAmount = servingAmount;
+            this.description = description;
+        }
+
+        private string name;
+        private int servingAmount;
+        private string description;
+
+        public void addIngredients(Ingredient ingredients)
+        {
+            this.ingredients.Add(ingredients);
+        }
+
+        public string getName()
+        {
+            return name;
+        }
+
+        public int getServingAmount()
+        {
+            return servingAmount;
+        }
+
+        public string getDescription()
+        {
+            return description;
+        }
+
+        public List<Ingredient> getIngredients()
+        {
+            return ingredients;
+        }
+
     }
 }

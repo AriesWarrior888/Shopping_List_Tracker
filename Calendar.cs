@@ -16,5 +16,10 @@ namespace Shopping_List_Tracker
         {
             InitializeComponent();
         }
+
+        private void rbDay_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
