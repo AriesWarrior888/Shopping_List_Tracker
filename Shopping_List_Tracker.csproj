@@ -50,6 +50,8 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Memory, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL" />
+    <Reference Include="System.Text.Json, Version=4.0.1.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -68,6 +70,7 @@
       <DependentUpon>Calendar.cs</DependentUpon>
     </Compile>
     <Compile Include="Classes\Ingredient.cs" />
+    <Compile Include="Classes\Storage.cs" />
     <Compile Include="CreateRecipe.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -76,6 +79,8 @@
     </Compile>
     <Compile Include="Classes\Recipe.cs" />
     <Compile Include="Events\ReturnBackToRecipe.cs" />
+    <Compile Include="Classes\MealPlan.cs" />
+    <Compile Include="Classes\MultiplePlans.cs" />
     <Compile Include="Service\GenerateRecipe.cs" />
     <Compile Include="Service\FileManager.cs" />
     <Compile Include="Inventory.cs">

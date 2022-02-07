@@ -6,6 +6,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -23,6 +24,12 @@ namespace Shopping_List_Tracker
         public CreateRecipe()
         {
             InitializeComponent();
+            controlList.Add(txtName);
+            controlList.Add(txtServingCount);
+            controlList.Add(txtDescription);
+
+            controlList.Add(txtIngredient);
+            controlList.Add(txtQTY);
         }
 
         public CreateRecipe(Recipe recipe)
@@ -33,12 +40,7 @@ namespace Shopping_List_Tracker
 
         private void frmRecipe_Load(object sender, EventArgs e)
         {
-            controlList.Add(txtName);
-            controlList.Add(txtServingCount);
-            controlList.Add(txtDescription);
-
-            controlList.Add(txtIngredient);
-            controlList.Add(txtQTY);
+            this.ControlBox = false;
         }
 
         private void btnCreate_Click(object sender, EventArgs e)
@@ -102,9 +104,26 @@ namespace Shopping_List_Tracker
                     MessageBox.Show($"field {control.Name} is empty");
                     return;
                 }
-                //if nothign has changed, meesageBaxShow(please change something before saving)
+                
             }
-
+            if (!Regex.IsMatch(controlList[1].Text, @"^[0-9]+$"))
+            {
+                MessageBox.Show($"field {controlList[1].Name} has non-numbers");
+                return;
+            }
+            if (!Regex.IsMatch(controlList[4].Text, @"^[0-9]+$"))
+            {
+                MessageBox.Show($"field {controlList[4].Name} has non-numbers");
+                return;
+            }
+            for(int i = 6; i < controlList.Count; i += 2)
+            {
+                if (!Regex.IsMatch(controlList[i].Text, @"^[0-9]+$"))
+                {
+                    MessageBox.Show($"An ingredient quantity box has non-numbers");
+                    return;
+                }
+            }
             List<Control> controls = new List<Control>();
             
             controls = controlList;
@@ -118,11 +137,17 @@ namespace Shopping_List_Tracker
 
         public void receiveAndSet( Recipe recipe)
         {
-            txtName.Text = recipe.getName();
-            txtServingCount.Text = ""+recipe.getServingAmount();
-            txtDescription.Text = recipe.getDescription();
+            txtName.Text = recipe.name;
+            txtServingCount.Text = ""+recipe.servingAmount;
+            txtDescription.Text = recipe.description;
             txtIngredient.Text = recipe.getIngredients()[0].name;
             txtQTY.Text = "" + recipe.getIngredients()[0].qty;
+            controlList.Add(txtName);
+            controlList.Add(txtServingCount);
+            controlList.Add(txtDescription);
+
+            controlList.Add(txtIngredient);
+            controlList.Add(txtQTY);
             for (int i = 1; i < recipe.getIngredients().Count; i++)
             {
                 tempCreateClick(recipe.getIngredients()[i]);

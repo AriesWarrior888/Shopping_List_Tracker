@@ -8,7 +8,29 @@ namespace Shopping_List_Tracker
 {
     public class Recipe
     {
-        private List<Ingredient> ingredients = new List<Ingredient>();
+        public List<Ingredient> ingredients
+        {
+            get;set;
+        }
+        
+        //desearializer fails to deserialize guid as such string is used
+        public Guid guid
+        {
+            get; set;
+        }
+
+        public string name
+        {
+            get; set;
+        }
+        public int servingAmount
+        {
+            get;set;
+        }
+        public string description
+        {
+            get;set;
+        }
         public Recipe()
         {
             name = "";
@@ -19,38 +41,44 @@ namespace Shopping_List_Tracker
         public Recipe(string name, int servingAmount, string description)
         {
             this.name = name;
+            guid = Guid.NewGuid();
+            ingredients = new List<Ingredient>();
             this.servingAmount = servingAmount;
             this.description = description;
         }
 
-        private string name;
-        private int servingAmount;
-        private string description;
+
 
         public void addIngredients(Ingredient ingredients)
         {
             this.ingredients.Add(ingredients);
         }
 
-        public string getName()
-        {
-            return name;
-        }
-
-        public int getServingAmount()
-        {
-            return servingAmount;
-        }
-
-        public string getDescription()
-        {
-            return description;
-        }
-
         public List<Ingredient> getIngredients()
         {
             return ingredients;
         }
+         
 
+
+        public void setName(string name)
+        {
+            this.name = name;
+        }
+
+        public void setServingAmount(int amnt)
+        {
+            servingAmount = amnt;
+        }
+
+        public void setDesctiption(string description)
+        {
+            this.description = description;
+        }
+
+        public void setIngredients(int location, Ingredient ingredient)
+        {
+            this.ingredients[location] = ingredient;         
+        }
     }
 }

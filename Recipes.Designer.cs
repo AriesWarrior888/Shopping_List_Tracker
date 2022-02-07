@@ -31,14 +31,16 @@ namespace Shopping_List_Tracker
         {
             this.flpList = new System.Windows.Forms.FlowLayoutPanel();
             this.btnCreateRow = new System.Windows.Forms.Button();
+            this.lblTitle = new System.Windows.Forms.Label();
+            this.btnClose = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // flpList
             // 
             this.flpList.AutoScroll = true;
-            this.flpList.Location = new System.Drawing.Point(12, 12);
+            this.flpList.Location = new System.Drawing.Point(12, 42);
             this.flpList.Name = "flpList";
-            this.flpList.Size = new System.Drawing.Size(637, 426);
+            this.flpList.Size = new System.Drawing.Size(637, 396);
             this.flpList.TabIndex = 0;
             // 
             // btnCreateRow
@@ -51,16 +53,38 @@ namespace Shopping_List_Tracker
             this.btnCreateRow.UseVisualStyleBackColor = true;
             this.btnCreateRow.Click += new System.EventHandler(this.btnCreateRow_Click);
             // 
+            // lblTitle
+            // 
+            this.lblTitle.AutoSize = true;
+            this.lblTitle.Location = new System.Drawing.Point(321, 14);
+            this.lblTitle.Name = "lblTitle";
+            this.lblTitle.Size = new System.Drawing.Size(46, 13);
+            this.lblTitle.TabIndex = 2;
+            this.lblTitle.Text = "Recipes";
+            // 
+            // btnClose
+            // 
+            this.btnClose.Location = new System.Drawing.Point(673, 389);
+            this.btnClose.Name = "btnClose";
+            this.btnClose.Size = new System.Drawing.Size(120, 48);
+            this.btnClose.TabIndex = 3;
+            this.btnClose.Text = "Close";
+            this.btnClose.UseVisualStyleBackColor = true;
+            this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
+            // 
             // Recipes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.btnClose);
+            this.Controls.Add(this.lblTitle);
             this.Controls.Add(this.btnCreateRow);
             this.Controls.Add(this.flpList);
             this.Name = "Recipes";
             this.Load += new System.EventHandler(this.Recipes_Load);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -68,5 +92,7 @@ namespace Shopping_List_Tracker
 
         private System.Windows.Forms.FlowLayoutPanel flpList;
         private System.Windows.Forms.Button btnCreateRow;
+        private System.Windows.Forms.Label lblTitle;
+        private System.Windows.Forms.Button btnClose;
     }
 }

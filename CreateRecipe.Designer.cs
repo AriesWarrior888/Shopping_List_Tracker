@@ -38,6 +38,11 @@ namespace Shopping_List_Tracker
             this.txtIngredient = new System.Windows.Forms.TextBox();
             this.txtQTY = new System.Windows.Forms.TextBox();
             this.btnCreate = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
             this.flpList.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -64,21 +69,21 @@ namespace Shopping_List_Tracker
             // txtName
             // 
             this.txtName.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtName.Location = new System.Drawing.Point(50, 13);
+            this.txtName.Location = new System.Drawing.Point(77, 12);
             this.txtName.Name = "txtName";
             this.txtName.Size = new System.Drawing.Size(600, 31);
             this.txtName.TabIndex = 2;
             // 
             // txtServingCount
             // 
-            this.txtServingCount.Location = new System.Drawing.Point(656, 22);
+            this.txtServingCount.Location = new System.Drawing.Point(683, 21);
             this.txtServingCount.Name = "txtServingCount";
             this.txtServingCount.Size = new System.Drawing.Size(38, 20);
             this.txtServingCount.TabIndex = 3;
             // 
             // txtDescription
             // 
-            this.txtDescription.Location = new System.Drawing.Point(50, 61);
+            this.txtDescription.Location = new System.Drawing.Point(77, 60);
             this.txtDescription.Name = "txtDescription";
             this.txtDescription.Size = new System.Drawing.Size(644, 20);
             this.txtDescription.TabIndex = 4;
@@ -89,7 +94,7 @@ namespace Shopping_List_Tracker
             this.flpList.Controls.Add(this.txtIngredient);
             this.flpList.Controls.Add(this.txtQTY);
             this.flpList.Controls.Add(this.btnCreate);
-            this.flpList.Location = new System.Drawing.Point(50, 104);
+            this.flpList.Location = new System.Drawing.Point(77, 103);
             this.flpList.Name = "flpList";
             this.flpList.Size = new System.Drawing.Size(657, 307);
             this.flpList.TabIndex = 5;
@@ -120,11 +125,61 @@ namespace Shopping_List_Tracker
             this.btnCreate.UseVisualStyleBackColor = true;
             this.btnCreate.Click += new System.EventHandler(this.btnCreate_Click);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(-1, 24);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(72, 13);
+            this.label1.TabIndex = 6;
+            this.label1.Text = "Recipe Name";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(727, 24);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(74, 13);
+            this.label2.TabIndex = 7;
+            this.label2.Text = "Serving Count";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(9, 67);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(60, 13);
+            this.label3.TabIndex = 8;
+            this.label3.Text = "Description";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(12, 109);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(54, 13);
+            this.label4.TabIndex = 9;
+            this.label4.Text = "Ingredient";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(742, 114);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(46, 13);
+            this.label5.TabIndex = 10;
+            this.label5.Text = "Quantity";
+            // 
             // CreateRecipe
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.flpList);
             this.Controls.Add(this.txtDescription);
             this.Controls.Add(this.txtServingCount);
@@ -152,5 +207,10 @@ namespace Shopping_List_Tracker
         private System.Windows.Forms.TextBox txtIngredient;
         private System.Windows.Forms.TextBox txtQTY;
         private System.Windows.Forms.Button btnCreate;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label5;
     }
 }

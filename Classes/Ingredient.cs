@@ -24,9 +24,13 @@ namespace Shopping_List_Tracker
             Gallon = 3,
             Tablespoon = 4,
             Teaspoon = 5,
+            nothing = 6,
         }
 
-        private UnitOfMeasurement measurement;
+        public UnitOfMeasurement measurement
+        {
+            get;set;
+        }
 
         public Ingredient()
         {
