@@ -30,15 +30,17 @@ namespace Shopping_List_Tracker
         private void InitializeComponent()
         {
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.lblTitle = new System.Windows.Forms.Label();
             this.tcCalendar = new System.Windows.Forms.TabControl();
             this.tpWeek = new System.Windows.Forms.TabPage();
             this.tpDay = new System.Windows.Forms.TabPage();
-            this.lblTitle = new System.Windows.Forms.Label();
+            this.lblDay = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             this.tcCalendar.SuspendLayout();
+            this.tpDay.SuspendLayout();
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -58,6 +60,15 @@ namespace Shopping_List_Tracker
             this.splitContainer1.Size = new System.Drawing.Size(800, 450);
             this.splitContainer1.SplitterDistance = 109;
             this.splitContainer1.TabIndex = 2;
+            // 
+            // lblTitle
+            // 
+            this.lblTitle.AutoSize = true;
+            this.lblTitle.Location = new System.Drawing.Point(385, 20);
+            this.lblTitle.Name = "lblTitle";
+            this.lblTitle.Size = new System.Drawing.Size(49, 13);
+            this.lblTitle.TabIndex = 0;
+            this.lblTitle.Text = "Calendar";
             // 
             // tcCalendar
             // 
@@ -82,6 +93,7 @@ namespace Shopping_List_Tracker
             // 
             // tpDay
             // 
+            this.tpDay.Controls.Add(this.lblDay);
             this.tpDay.Location = new System.Drawing.Point(4, 22);
             this.tpDay.Name = "tpDay";
             this.tpDay.Padding = new System.Windows.Forms.Padding(3);
@@ -90,14 +102,14 @@ namespace Shopping_List_Tracker
             this.tpDay.Text = "Day";
             this.tpDay.UseVisualStyleBackColor = true;
             // 
-            // lblTitle
+            // lblDay
             // 
-            this.lblTitle.AutoSize = true;
-            this.lblTitle.Location = new System.Drawing.Point(342, 26);
-            this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(49, 13);
-            this.lblTitle.TabIndex = 0;
-            this.lblTitle.Text = "Calendar";
+            this.lblDay.AutoSize = true;
+            this.lblDay.Location = new System.Drawing.Point(381, 48);
+            this.lblDay.Name = "lblDay";
+            this.lblDay.Size = new System.Drawing.Size(35, 13);
+            this.lblDay.TabIndex = 0;
+            this.lblDay.Text = "label1";
             // 
             // Calendar
             // 
@@ -106,12 +118,15 @@ namespace Shopping_List_Tracker
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.splitContainer1);
             this.Name = "Calendar";
+            this.Load += new System.EventHandler(this.Calendar_Load);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel1.PerformLayout();
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
             this.tcCalendar.ResumeLayout(false);
+            this.tpDay.ResumeLayout(false);
+            this.tpDay.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -122,5 +137,6 @@ namespace Shopping_List_Tracker
         private System.Windows.Forms.TabPage tpWeek;
         private System.Windows.Forms.TabPage tpDay;
         private System.Windows.Forms.Label lblTitle;
+        private System.Windows.Forms.Label lblDay;
     }
 }

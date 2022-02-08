@@ -14,9 +14,6 @@ namespace Shopping_List_Tracker
         [STAThread]
         static void Main()
         {
-            Guid g = Guid.NewGuid();
-            string s = g.ToString();
-            Guid g2 = Guid.Parse(s);
 
             InitializeDirectory();
             Application.EnableVisualStyles();
