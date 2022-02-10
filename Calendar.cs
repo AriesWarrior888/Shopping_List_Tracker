@@ -17,7 +17,7 @@ namespace Shopping_List_Tracker
         private readonly string fileName = "calendarStorage.Json";
         private string jsonString = string.Empty;
         public DateTime date = DateTime.Today;
-
+        List<MealPlan> mealPlans = new List<MealPlan>();
 
         public Calendar()
         {
@@ -31,26 +31,75 @@ namespace Shopping_List_Tracker
 
         public void setControls()
         {
-            lblDay.Text = $"{date.DayOfWeek}";
+            ControlBox = false;
+            formatDates(0);
+        }
+        
+        public void formatDates(int direction)
+        {
+            int distanceFromSunday = 0;
+
+            if (direction < 0)
+            {
+                date.AddDays(-7);
+            }
+            if (direction > 0)
+            {
+                date.AddDays(7);
+            }
+
+            lblDay.Text = $"{date.DayOfWeek} {date.Month}/{date.Day}";
+            distanceFromSunday = (int)date.DayOfWeek;
+
+
+            date = date.AddDays(-distanceFromSunday);
+            lblSunday.Text = $"Sunday {date.Month}/{date.Day}";
+
+            date = date.AddDays(1);
+            lblMonday.Text = $"{date.DayOfWeek} {date.Month}/{date.Day}";
+
+            date = date.AddDays(1);
+            lblTuesday.Text = $"{date.DayOfWeek} {date.Month}/{date.Day}";
+
+            date = date.AddDays(1);
+            lblWednesday.Text = $"{date.DayOfWeek} {date.Month}/{date.Day}";
+
+            date = date.AddDays(1);
+            lblThursday.Text = $"{date.DayOfWeek} {date.Month}/{date.Day}";
+
+            date = date.AddDays(1);
+            lblFriday.Text = $"{date.DayOfWeek} {date.Month}/{date.Day}";
+
+            date = date.AddDays(1);
+            lblSaturday.Text = $"{date.DayOfWeek} {date.Month}/{date.Day}";
         }
 
         private void InitializeFIle()
         {
             fullPathToFile = System.IO.Path.Combine(Program.ApplicationDirectory, fileName);
-            
-            if(System.IO.File.Exists(fullPathToFile))
+
+            if (System.IO.File.Exists(fullPathToFile))
             {
                 FileManager.ReadFromFile(fullPathToFile, out jsonString);
-            }
-            
-            List<MultiplePlans> tempList = JsonSerializer.Deserialize<List<MultiplePlans>>(jsonString);
-           
-         
+                mealPlans = JsonSerializer.Deserialize<List<MealPlan>>(jsonString);
+            }                  
         }
 
         private void Calendar_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void btnClose_Click(object sender, EventArgs e)
+        {
+            var options = new JsonSerializerOptions
+            {
+                WriteIndented = true
+            };
+
+            string jsonString = JsonSerializer.Serialize(mealPlans, options);
+            FileManager.WriteToFile(fullPathToFile, jsonString);
+            this.Close();
         }
     }
 }

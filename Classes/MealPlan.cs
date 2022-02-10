@@ -16,7 +16,7 @@ namespace Shopping_List_Tracker
             get; set;
         }
 
-        public DateTime date
+        public string date
         {
             get;set;
         }
@@ -27,14 +27,14 @@ namespace Shopping_List_Tracker
         {
             recipe = new Recipe();
             qty = 0;
-            date = new DateTime();
+            date = "";
         }
 
         public MealPlan(Recipe recipe, int qty, string date)
         {
             this.recipe = recipe;
             this.qty = qty;
-            this.date = DateTime.Parse(date, new System.Globalization.CultureInfo("en-US"));
+            this.date = date;
         }
     }
 }
