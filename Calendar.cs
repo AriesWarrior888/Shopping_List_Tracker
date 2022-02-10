@@ -18,6 +18,7 @@ namespace Shopping_List_Tracker
         private string jsonString = string.Empty;
         public DateTime date = DateTime.Today;
         List<MealPlan> mealPlans = new List<MealPlan>();
+        public bool weekView = true;
 
         public Calendar()
         {
@@ -41,16 +42,16 @@ namespace Shopping_List_Tracker
 
             if (direction < 0)
             {
-                date.AddDays(-7);
+                date = date.AddDays(direction);
             }
             if (direction > 0)
             {
-                date.AddDays(7);
+                date = date.AddDays(direction);
             }
 
+            #region Set the Labels with Days of the Week
             lblDay.Text = $"{date.DayOfWeek} {date.Month}/{date.Day}";
             distanceFromSunday = (int)date.DayOfWeek;
-
 
             date = date.AddDays(-distanceFromSunday);
             lblSunday.Text = $"Sunday {date.Month}/{date.Day}";
@@ -72,17 +73,40 @@ namespace Shopping_List_Tracker
 
             date = date.AddDays(1);
             lblSaturday.Text = $"{date.DayOfWeek} {date.Month}/{date.Day}";
+
+            
+            #endregion
         }
 
         private void InitializeFIle()
         {
             fullPathToFile = System.IO.Path.Combine(Program.ApplicationDirectory, fileName);
+            fullPathToFile = "C:\\Isaac Jones\\calendarStorage.Json";
 
             if (System.IO.File.Exists(fullPathToFile))
             {
                 FileManager.ReadFromFile(fullPathToFile, out jsonString);
                 mealPlans = JsonSerializer.Deserialize<List<MealPlan>>(jsonString);
-            }                  
+                setRecipes(mealPlans);
+            }
+        }
+
+        public void setRecipes(List<MealPlan> list)
+        {
+            Button Recipebutton = new Button();
+            NumericUpDown numeric = new NumericUpDown();
+            Button deleteButton = new Button();
+
+            //Recipe Buttons
+
+
+            //Numeric Up Down
+
+
+            //Delete Button
+
+
+
         }
 
         private void Calendar_Load(object sender, EventArgs e)
@@ -97,9 +121,72 @@ namespace Shopping_List_Tracker
                 WriteIndented = true
             };
 
-            string jsonString = JsonSerializer.Serialize(mealPlans, options);
             FileManager.WriteToFile(fullPathToFile, jsonString);
             this.Close();
+        }
+
+        private void btnWeekPrevious_Click(object sender, EventArgs e)
+        {
+            weekView = true;
+            formatDates(-7);
+        }
+
+        private void btnWeekNext_Click(object sender, EventArgs e)
+        {
+            weekView = true;
+            formatDates(7);
+        }
+
+        private void btnDayPrevious_Click(object sender, EventArgs e)
+        {
+            weekView = false;
+            formatDates(-1);
+            
+        }
+
+        private void btnDayNext_Click(object sender, EventArgs e)
+        {
+            weekView = false;
+            formatDates(1);
+            
+        }
+
+        private void btnCreate_Click(object sender, EventArgs e)
+        {
+            ComboBox recipeButton = new ComboBox();
+            NumericUpDown numeric = new NumericUpDown();
+            Button deleteButton = new Button();
+            Form frmRecipe = new Form();
+            string tempString = "";
+           /* List<Recipe> recipeList = JsonSerializer.Deserialize<List<Recipe>>(tempString);
+            String[] recipes = new String[recipeList.Count];
+            int[] count = new int[recipeList.Count];
+            
+            for (int i = 0; i < recipeList.Count; i++)
+            {
+                recipes[i] = recipeList[i].name;
+            }
+
+            
+
+            FileManager.ReadFromFile(System.IO.Path.Combine(Program.ApplicationDirectory, frmRecipe.fileName), out tempString);*/
+
+            recipeButton.DropDownStyle = ComboBoxStyle.DropDownList;
+
+            recipeButton.Size = new Size(131, 20);
+
+
+            //recipeButton.Items.AddRange(recipes);
+
+            //Numeric Up Down
+            numeric.Size = new Size(30, 20);
+
+            //Delete Button
+            deleteButton.Size = new Size(55, 20);
+
+
+
+
         }
     }
 }
