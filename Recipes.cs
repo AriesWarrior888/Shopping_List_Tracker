@@ -17,8 +17,8 @@ namespace Shopping_List_Tracker
         private int indexOfSender = 0;
         int ingredientListSize = 0;
 
-        private string fullPathToFile = string.Empty;
-        private readonly string fileName = "recipeStorage.Json";
+        public string fullPathToFile = string.Empty;
+        public readonly string fileName = "recipeStorage.Json";
         private string jsonString = string.Empty;
         #endregion
 

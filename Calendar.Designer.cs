@@ -44,14 +44,12 @@ namespace Shopping_List_Tracker
             this.lblWednesday = new System.Windows.Forms.Label();
             this.lblTuesday = new System.Windows.Forms.Label();
             this.tpDay = new System.Windows.Forms.TabPage();
-            this.lblDay = new System.Windows.Forms.Label();
-            this.btnDayPrevious = new System.Windows.Forms.Button();
-            this.btnDayNext = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
-            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
-            this.flpList = new System.Windows.Forms.FlowLayoutPanel();
             this.btnCreate = new System.Windows.Forms.Button();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.flpList = new System.Windows.Forms.FlowLayoutPanel();
+            this.btnDayNext = new System.Windows.Forms.Button();
+            this.btnDayPrevious = new System.Windows.Forms.Button();
+            this.lblDay = new System.Windows.Forms.Label();
+            this.btnGenList = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -59,8 +57,6 @@ namespace Shopping_List_Tracker
             this.tcCalendar.SuspendLayout();
             this.tpWeek.SuspendLayout();
             this.tpDay.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
-            this.flpList.SuspendLayout();
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -72,6 +68,7 @@ namespace Shopping_List_Tracker
             // 
             // splitContainer1.Panel1
             // 
+            this.splitContainer1.Panel1.Controls.Add(this.btnGenList);
             this.splitContainer1.Panel1.Controls.Add(this.btnClose);
             this.splitContainer1.Panel1.Controls.Add(this.lblTitle);
             // 
@@ -229,24 +226,22 @@ namespace Shopping_List_Tracker
             this.tpDay.Text = "Day";
             this.tpDay.UseVisualStyleBackColor = true;
             // 
-            // lblDay
+            // btnCreate
             // 
-            this.lblDay.AutoSize = true;
-            this.lblDay.Location = new System.Drawing.Point(381, 27);
-            this.lblDay.Name = "lblDay";
-            this.lblDay.Size = new System.Drawing.Size(37, 13);
-            this.lblDay.TabIndex = 0;
-            this.lblDay.Text = "Today";
+            this.btnCreate.Location = new System.Drawing.Point(524, 272);
+            this.btnCreate.Name = "btnCreate";
+            this.btnCreate.Size = new System.Drawing.Size(20, 22);
+            this.btnCreate.TabIndex = 7;
+            this.btnCreate.Text = "+";
+            this.btnCreate.UseVisualStyleBackColor = true;
+            this.btnCreate.Click += new System.EventHandler(this.btnCreate_Click);
             // 
-            // btnDayPrevious
+            // flpList
             // 
-            this.btnDayPrevious.Location = new System.Drawing.Point(1, 98);
-            this.btnDayPrevious.Name = "btnDayPrevious";
-            this.btnDayPrevious.Size = new System.Drawing.Size(36, 83);
-            this.btnDayPrevious.TabIndex = 1;
-            this.btnDayPrevious.Text = "button1";
-            this.btnDayPrevious.UseVisualStyleBackColor = true;
-            this.btnDayPrevious.Click += new System.EventHandler(this.btnDayPrevious_Click);
+            this.flpList.Location = new System.Drawing.Point(283, 64);
+            this.flpList.Name = "flpList";
+            this.flpList.Size = new System.Drawing.Size(235, 230);
+            this.flpList.TabIndex = 6;
             // 
             // btnDayNext
             // 
@@ -258,49 +253,34 @@ namespace Shopping_List_Tracker
             this.btnDayNext.UseVisualStyleBackColor = true;
             this.btnDayNext.Click += new System.EventHandler(this.btnDayNext_Click);
             // 
-            // button1
+            // btnDayPrevious
             // 
-            this.button1.Location = new System.Drawing.Point(177, 3);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(55, 23);
-            this.button1.TabIndex = 3;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btnDayPrevious.Location = new System.Drawing.Point(1, 98);
+            this.btnDayPrevious.Name = "btnDayPrevious";
+            this.btnDayPrevious.Size = new System.Drawing.Size(36, 83);
+            this.btnDayPrevious.TabIndex = 1;
+            this.btnDayPrevious.Text = "button1";
+            this.btnDayPrevious.UseVisualStyleBackColor = true;
+            this.btnDayPrevious.Click += new System.EventHandler(this.btnDayPrevious_Click);
             // 
-            // numericUpDown1
+            // lblDay
             // 
-            this.numericUpDown1.Location = new System.Drawing.Point(141, 3);
-            this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(30, 20);
-            this.numericUpDown1.TabIndex = 4;
+            this.lblDay.AutoSize = true;
+            this.lblDay.Location = new System.Drawing.Point(381, 27);
+            this.lblDay.Name = "lblDay";
+            this.lblDay.Size = new System.Drawing.Size(37, 13);
+            this.lblDay.TabIndex = 0;
+            this.lblDay.Text = "Today";
             // 
-            // flpList
+            // btnGenList
             // 
-            this.flpList.Controls.Add(this.comboBox1);
-            this.flpList.Controls.Add(this.numericUpDown1);
-            this.flpList.Controls.Add(this.button1);
-            this.flpList.Location = new System.Drawing.Point(283, 64);
-            this.flpList.Name = "flpList";
-            this.flpList.Size = new System.Drawing.Size(235, 230);
-            this.flpList.TabIndex = 6;
-            // 
-            // btnCreate
-            // 
-            this.btnCreate.Location = new System.Drawing.Point(524, 272);
-            this.btnCreate.Name = "btnCreate";
-            this.btnCreate.Size = new System.Drawing.Size(20, 22);
-            this.btnCreate.TabIndex = 7;
-            this.btnCreate.Text = "+";
-            this.btnCreate.UseVisualStyleBackColor = true;
-            this.btnCreate.Click += new System.EventHandler(this.btnCreate_Click);
-            // 
-            // comboBox1
-            // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(3, 3);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(132, 21);
-            this.comboBox1.TabIndex = 6;
+            this.btnGenList.Location = new System.Drawing.Point(702, 70);
+            this.btnGenList.Name = "btnGenList";
+            this.btnGenList.Size = new System.Drawing.Size(90, 33);
+            this.btnGenList.TabIndex = 2;
+            this.btnGenList.Text = "Generate List";
+            this.btnGenList.UseVisualStyleBackColor = true;
+            this.btnGenList.Click += new System.EventHandler(this.btnGenList_Click);
             // 
             // Calendar
             // 
@@ -320,8 +300,6 @@ namespace Shopping_List_Tracker
             this.tpWeek.PerformLayout();
             this.tpDay.ResumeLayout(false);
             this.tpDay.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
-            this.flpList.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -345,10 +323,8 @@ namespace Shopping_List_Tracker
         private System.Windows.Forms.Label lblMonday;
         private System.Windows.Forms.Button btnDayNext;
         private System.Windows.Forms.Button btnDayPrevious;
-        private System.Windows.Forms.NumericUpDown numericUpDown1;
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.FlowLayoutPanel flpList;
         private System.Windows.Forms.Button btnCreate;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.Button btnGenList;
     }
 }
