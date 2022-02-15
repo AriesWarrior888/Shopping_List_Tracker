@@ -81,7 +81,7 @@ namespace Shopping_List_Tracker
         private void InitializeFIle()
         {
             fullPathToFile = System.IO.Path.Combine(Program.ApplicationDirectory, fileName);
-            fullPathToFile = "C:\\Isaac Jones\\calendarStorage.Json";
+            //fullPathToFile = "C:\\Isaac Jones\\calendarStorage.Json";
 
             if (System.IO.File.Exists(fullPathToFile))
             {

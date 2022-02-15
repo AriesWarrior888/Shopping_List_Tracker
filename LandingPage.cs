@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml;
 
 namespace Shopping_List_Tracker
 {
@@ -16,6 +17,8 @@ namespace Shopping_List_Tracker
         public LandingPage()
         {
             InitializeComponent();
+
+            this.webBrowser1.DocumentText = "<a href=\"EA9EB851-54E5-4C13-B6DE-33839D4083FC\">damnit</a>";
         }
 
         public static System.Timers.Timer timer;
@@ -59,6 +62,32 @@ namespace Shopping_List_Tracker
         {
             //FileManager.WriteToFile()
             this.Dispose();
+        }
+
+        private void richTextBox1_LinkClicked(object sender, LinkClickedEventArgs e)
+        {
+            //e.LinkText
+        }
+
+        private void richTextBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void webBrowser1_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
+        {
+
+        }
+
+        private void webBrowser1_Navigating(object sender, WebBrowserNavigatingEventArgs e)
+        {
+            if (e.Url.AbsolutePath != "blank")
+            {
+                XmlDocument xDoc = new XmlDocument();
+                xDoc.LoadXml(e.Url.AbsolutePath);
+
+                string szGuid = xDoc.ChildNodes[0].Attributes["guid"].ToString();
+            }
         }
     }
 }

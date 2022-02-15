@@ -38,6 +38,8 @@ namespace Shopping_List_Tracker
             this.btnRecipe = new System.Windows.Forms.Button();
             this.lblTitle = new System.Windows.Forms.Label();
             this.grdPlan = new System.Windows.Forms.DataGridView();
+            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.webBrowser1 = new System.Windows.Forms.WebBrowser();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -68,7 +70,7 @@ namespace Shopping_List_Tracker
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
             this.exitToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.X)));
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -88,6 +90,8 @@ namespace Shopping_List_Tracker
             // 
             // splitContainer1.Panel2
             // 
+            this.splitContainer1.Panel2.Controls.Add(this.webBrowser1);
+            this.splitContainer1.Panel2.Controls.Add(this.richTextBox1);
             this.splitContainer1.Panel2.Controls.Add(this.grdPlan);
             this.splitContainer1.Size = new System.Drawing.Size(815, 450);
             this.splitContainer1.SplitterDistance = 183;
@@ -144,6 +148,27 @@ namespace Shopping_List_Tracker
             this.grdPlan.Size = new System.Drawing.Size(628, 450);
             this.grdPlan.TabIndex = 0;
             // 
+            // richTextBox1
+            // 
+            this.richTextBox1.Location = new System.Drawing.Point(170, 120);
+            this.richTextBox1.Name = "richTextBox1";
+            this.richTextBox1.Size = new System.Drawing.Size(263, 202);
+            this.richTextBox1.TabIndex = 1;
+            this.richTextBox1.Text = "<a href = \"https://mail.google.com/mail/u/0/?tab=rm&ogbl#inbox\" >this is myy text" +
+    "</a>";
+            this.richTextBox1.LinkClicked += new System.Windows.Forms.LinkClickedEventHandler(this.richTextBox1_LinkClicked);
+            this.richTextBox1.TextChanged += new System.EventHandler(this.richTextBox1_TextChanged);
+            // 
+            // webBrowser1
+            // 
+            this.webBrowser1.Location = new System.Drawing.Point(48, 173);
+            this.webBrowser1.MinimumSize = new System.Drawing.Size(20, 20);
+            this.webBrowser1.Name = "webBrowser1";
+            this.webBrowser1.Size = new System.Drawing.Size(280, 210);
+            this.webBrowser1.TabIndex = 2;
+            this.webBrowser1.DocumentCompleted += new System.Windows.Forms.WebBrowserDocumentCompletedEventHandler(this.webBrowser1_DocumentCompleted);
+            this.webBrowser1.Navigating += new System.Windows.Forms.WebBrowserNavigatingEventHandler(this.webBrowser1_Navigating);
+            // 
             // LandingPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -178,6 +203,8 @@ namespace Shopping_List_Tracker
         private System.Windows.Forms.Button btnRecipe;
         private System.Windows.Forms.Label lblTitle;
         private System.Windows.Forms.DataGridView grdPlan;
+        private System.Windows.Forms.RichTextBox richTextBox1;
+        private System.Windows.Forms.WebBrowser webBrowser1;
     }
 }
 
