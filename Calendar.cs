@@ -106,6 +106,13 @@ namespace Shopping_List_Tracker
             {
                 FileManager.ReadFromFile(fullPathToFile, out jsonString);
                 mealPlans = JsonSerializer.Deserialize<List<MealPlan>>(jsonString);
+                if (flpList.Controls.Count > 0)
+                {
+                    foreach (Control control in flpList.Controls)
+                    {
+                        flpList.Controls.Remove(control);
+                    }
+                }
                 for (int i = 0; i < mealPlans.Count; i++)
                 {
                     setRecipes(mealPlans[i]);
@@ -116,66 +123,71 @@ namespace Shopping_List_Tracker
 
         public void setRecipes(MealPlan plan)
         {
-            ComboBox recipeButton = new ComboBox();
-            NumericUpDown numeric = new NumericUpDown();
-            Button deleteButton = new Button();
-            Recipes frmRecipe = new Recipes();
-            string tempString = "";
-
-
-            if (System.IO.File.Exists(frmRecipe.fullPathToFile))
+            if(dayDate.ToString().CompareTo(plan.date.ToString()) == 0 )
             {
-                FileManager.ReadFromFile(frmRecipe.fullPathToFile, out tempString);
-                recipeList = JsonSerializer.Deserialize<List<Recipe>>(tempString);
-            }
 
-            String[] recipes = new String[recipeList.Count];
-            count = new int[recipeList.Count];
+                ComboBox recipeButton = new ComboBox();
+                NumericUpDown numeric = new NumericUpDown();
+                Button deleteButton = new Button();
+                Recipes frmRecipe = new Recipes();
+                string tempString = "";
 
-            for (int i = 0; i < recipeList.Count; i++)
-            {
-                recipes[i] = recipeList[i].name;
-                count[i] = recipeList[i].servingAmount;
-            }
 
-            //Recipe 
-            int index = 0;
-            
-            recipeButton.Text = plan.recipe.name;
-            recipeButton.DropDownStyle = ComboBoxStyle.DropDownList;
-            recipeButton.Items.AddRange(recipes);
-            foreach (var item in recipeButton.Items)
-            {
-                if (item.Equals(plan.recipe.name))
+                if (System.IO.File.Exists(frmRecipe.fullPathToFile))
                 {
-                    index = recipeButton.Items.IndexOf(item);
+                    FileManager.ReadFromFile(frmRecipe.fullPathToFile, out tempString);
+                    recipeList = JsonSerializer.Deserialize<List<Recipe>>(tempString);
                 }
+
+                String[] recipes = new String[recipeList.Count];
+                count = new int[recipeList.Count];
+
+                for (int i = 0; i < recipeList.Count; i++)
+                {
+                    recipes[i] = recipeList[i].name;
+                    count[i] = recipeList[i].servingAmount;
+                }
+
+                //Recipe 
+                int index = 0;
+
+                recipeButton.Text = plan.recipe.name;
+                recipeButton.DropDownStyle = ComboBoxStyle.DropDownList;
+                recipeButton.Items.AddRange(recipes);
+                foreach (var item in recipeButton.Items)
+                {
+                    if (item.Equals(plan.recipe.name))
+                    {
+                        index = recipeButton.Items.IndexOf(item);
+                    }
+                }
+                recipeButton.SelectedIndex = index;
+                recipeButton.Size = new Size(131, 20);
+                recipeButton.Tag = plan.recipe.guid;
+                recipeButton.SelectedValueChanged += new EventHandler(comboBox_ValueChanged);
+
+
+
+
+                //Numeric Up Down
+                numeric.Size = new Size(30, 20);
+                numeric.Value = plan.qty;
+                numeric.ValueChanged += new EventHandler(numericUpDown_ValueChanged);
+
+                //Delete Button
+                deleteButton.Size = new Size(55, 20);
+                deleteButton.Text = "Delete";
+
+
+                flpList.Controls.Add(recipeButton);
+                flpList.Controls.Add(numeric);
+                flpList.Controls.Add(deleteButton);
+
+                controlList.Add(recipeButton);
+                controlList.Add(numeric);
+                controlList.Add(deleteButton);
             }
-            recipeButton.SelectedIndex = index;
-            recipeButton.Size = new Size(131, 20);
-            recipeButton.Tag = plan.recipe.guid;
-            recipeButton.SelectedValueChanged += new EventHandler(comboBox_ValueChanged);
 
-
-
-
-            //Numeric Up Down
-            numeric.Size = new Size(30, 20);
-            numeric.Value = plan.qty;
-            numeric.ValueChanged += new EventHandler(numericUpDown_ValueChanged);
-
-            //Delete Button
-            deleteButton.Size = new Size(55, 20);
-            deleteButton.Text = "Delete";
-
-
-            flpList.Controls.Add(recipeButton);
-            flpList.Controls.Add(numeric);
-            flpList.Controls.Add(deleteButton);
-
-            controlList.Add(recipeButton);
-            controlList.Add(numeric);
-            controlList.Add(deleteButton);
         }
 
         private void Calendar_Load(object sender, EventArgs e)
@@ -183,7 +195,7 @@ namespace Shopping_List_Tracker
 
         }
 
-        private void btnClose_Click(object sender, EventArgs e)
+        private void save()
         {
             var options = new JsonSerializerOptions
             {
@@ -192,6 +204,12 @@ namespace Shopping_List_Tracker
 
             jsonString = JsonSerializer.Serialize(mealPlans, options);
             FileManager.WriteToFile(fullPathToFile, jsonString);
+  
+        }
+
+        private void btnClose_Click(object sender, EventArgs e)
+        {
+            save();
             this.Close();
         }
 
@@ -199,26 +217,109 @@ namespace Shopping_List_Tracker
         {
             weekView = true;
             formatDates(-7);
+            List<MealPlan> temp = determineDate(dayDate, mealPlans);
+            if(System.IO.File.Exists(fullPathToFile))
+            {
+                if (flpList.Controls.Count > 0)
+                {
+                    foreach (Control control in flpList.Controls)
+                    {
+                        flpList.Controls.Remove(control);
+                    }
+                }
+
+                for (int i = 0; i < temp.Count; i++)
+                {
+                    setRecipes(temp[i]);
+                }
+                
+            }
         }
 
         private void btnWeekNext_Click(object sender, EventArgs e)
         {
             weekView = true;
             formatDates(7);
+            List<MealPlan> temp = determineDate(dayDate, mealPlans);
+            if (System.IO.File.Exists(fullPathToFile))
+            {
+                if (flpList.Controls.Count > 0)
+                {
+                    foreach (Control control in flpList.Controls)
+                    {
+                        flpList.Controls.Remove(control);
+                    }
+                }
+
+                for (int i = 0; i < temp.Count; i++)
+                {
+                    setRecipes(temp[i]);
+                }
+
+            }
         }
 
         private void btnDayPrevious_Click(object sender, EventArgs e)
         {
             weekView = false;
             formatDates(-1);
-            
+            List<MealPlan> temp = determineDate(dayDate, mealPlans);
+            if (System.IO.File.Exists(fullPathToFile))
+            {
+                if (flpList.Controls.Count > 0)
+                {
+                    foreach (Control control in flpList.Controls)
+                    {
+                        flpList.Controls.Remove(control);
+                    }
+                }
+
+                for (int i = 0; i < temp.Count; i++)
+                {
+                    setRecipes(temp[i]);
+                }
+
+            }
+
         }
 
         private void btnDayNext_Click(object sender, EventArgs e)
         {
             weekView = false;
             formatDates(1);
+            List<MealPlan> temp = determineDate(dayDate, mealPlans);
+            if (System.IO.File.Exists(fullPathToFile))
+            {
+                if (flpList.Controls.Count > 0)
+                {
+                    foreach (Control control in flpList.Controls)
+                    {
+                        flpList.Controls.Remove(control);
+                    }
+                }
+
+                for (int i = 0; i < temp.Count; i++)
+                {
+                    setRecipes(temp[i]);
+                }
+
+            }
+
+        }
+
+        private List<MealPlan> determineDate(DateTime date, List<MealPlan> list)
+        {
+            List<MealPlan> returnList = new List<MealPlan>();
             
+            foreach (MealPlan mealPlan in list)
+            {
+                if (mealPlan.date.ToString().CompareTo(date.ToString()) == 0)
+                {
+                    returnList.Add(mealPlan);
+                }
+            }
+
+            return returnList;
         }
 
         private void btnCreate_Click(object sender, EventArgs e)
@@ -284,6 +385,7 @@ namespace Shopping_List_Tracker
             MealPlan newPlan = new MealPlan();
             newPlan.date = dayDate.ToString();
             mealPlans.Add(newPlan);
+            save();
         }
 
         private void numericUpDown_ValueChanged(object sender, EventArgs e)
@@ -291,6 +393,7 @@ namespace Shopping_List_Tracker
             int location = flpList.Controls.IndexOf((Control)sender)/3;
             count[location]++;
             mealPlans[location].qty += 1;
+            save();
         }
 
         private void comboBox_ValueChanged(object sender, EventArgs e)
@@ -303,20 +406,23 @@ namespace Shopping_List_Tracker
                     mealPlans[flpList.Controls.IndexOf((Control)sender) / 3].recipe = recipeList[i];
                 }
             }
+            save();
         }
 
         private void btnGenList_Click(object sender, EventArgs e)
         {
             List<Recipe> finalRecipeList = new List<Recipe>();
+            List<int> finalQtyList = new List<int>();
             Inventory inventory = new Inventory();
             Recipes recipe = new Recipes();
             
 
             for(int i = 0; i < mealPlans.Count; i++)
             {
-                if(mealPlans[i].date.CompareTo(DateTime.Today.ToString()) >= 0)
+                if(mealPlans[i].date.CompareTo(dayDate.ToString()) >= 0)
                 {
                     finalRecipeList.Add(mealPlans[i].recipe);
+                    finalQtyList.Add(mealPlans[i].qty);
                 }
             }
 
@@ -337,27 +443,36 @@ namespace Shopping_List_Tracker
                 {
                     if(nameList.Contains(ingredient.name))
                     {
-                        qtyList[nameList.IndexOf(ingredient.name)] += ingredient.qty;
+                        qtyList[nameList.IndexOf(ingredient.name)] += finalQtyList[i - 1] * ingredient.qty;
                     }
                     else
                     {
                         nameList.Add(ingredient.name);
-                        qtyList.Add(ingredient.qty);
+                        qtyList.Add(finalQtyList[i - 1] * ingredient.qty);
                     }
                 }
             }
 
             int[] theDifference = new int[qtyList.Count];
+            string outputString = "";
             for (int i = 0; i < nameList.Count; i++)
             {
                 foreach (Storage ingredient in inventory.ingredientList)
                 {
                     if(nameList[i].Equals(ingredient.ingredient.name))
                     {
-                        qtyList[i] -= ingredient.ingredient.qty;
+                        qtyList[i] -= inventory.ingredientList[]* finalQtyList[i];
+                       
                     }
                 }
+                if(qtyList[i] > 0)
+                {
+                    outputString = outputString + $"You need {qtyList[i]} {nameList[i]}";
+                }
+                
             }
+
+            MessageBox.Show(outputString);
         }
     }
 }
