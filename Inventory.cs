@@ -17,7 +17,10 @@ namespace Shopping_List_Tracker
         private string fullPathToFile = string.Empty;
         private readonly string fileName = "inventory.Json";
         private string jsonString = string.Empty;
-        private Storage[] ingredientList;
+        public Storage[] ingredientList
+        {
+            get;set;
+        }
         List<Control> currentControlList = new List<Control>();
         public Inventory()
         {

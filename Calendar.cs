@@ -29,6 +29,7 @@ namespace Shopping_List_Tracker
             InitializeComponent();
             System.Threading.Thread.CurrentThread.CurrentCulture = System.Globalization.CultureInfo.CreateSpecificCulture("en-GB");
             InitializeFIle();
+
             setControls();
            
         }
@@ -100,7 +101,6 @@ namespace Shopping_List_Tracker
         private void InitializeFIle()
         {
             fullPathToFile = System.IO.Path.Combine(Program.ApplicationDirectory, fileName);
-            fullPathToFile = "C:\\Isaac Jones\\calendarStorage.Json";
 
             if (System.IO.File.Exists(fullPathToFile))
             {
@@ -119,12 +119,13 @@ namespace Shopping_List_Tracker
             ComboBox recipeButton = new ComboBox();
             NumericUpDown numeric = new NumericUpDown();
             Button deleteButton = new Button();
+            Recipes frmRecipe = new Recipes();
             string tempString = "";
 
 
-            if (System.IO.File.Exists(fullPathToFile))
+            if (System.IO.File.Exists(frmRecipe.fullPathToFile))
             {
-                FileManager.ReadFromFile(fullPathToFile, out tempString);
+                FileManager.ReadFromFile(frmRecipe.fullPathToFile, out tempString);
                 recipeList = JsonSerializer.Deserialize<List<Recipe>>(tempString);
             }
 
@@ -138,12 +139,22 @@ namespace Shopping_List_Tracker
             }
 
             //Recipe 
+            int index = 0;
+            
+            recipeButton.Text = plan.recipe.name;
             recipeButton.DropDownStyle = ComboBoxStyle.DropDownList;
             recipeButton.Items.AddRange(recipes);
-            recipeButton.Text = plan.recipe.name;
+            foreach (var item in recipeButton.Items)
+            {
+                if (item.Equals(plan.recipe.name))
+                {
+                    index = recipeButton.Items.IndexOf(item);
+                }
+            }
+            recipeButton.SelectedIndex = index;
             recipeButton.Size = new Size(131, 20);
             recipeButton.Tag = plan.recipe.guid;
-            recipeButton.ValueMemberChanged += new EventHandler(comboBox_ValueChanged);
+            recipeButton.SelectedValueChanged += new EventHandler(comboBox_ValueChanged);
 
 
 
@@ -155,6 +166,7 @@ namespace Shopping_List_Tracker
 
             //Delete Button
             deleteButton.Size = new Size(55, 20);
+            deleteButton.Text = "Delete";
 
 
             flpList.Controls.Add(recipeButton);
@@ -247,7 +259,7 @@ namespace Shopping_List_Tracker
 
             recipeButton.DropDownStyle = ComboBoxStyle.DropDownList;
             recipeButton.Items.AddRange(recipes);
-            recipeButton.ValueMemberChanged += new EventHandler(comboBox_ValueChanged);
+            recipeButton.SelectedValueChanged += new EventHandler(comboBox_ValueChanged);
             recipeButton.Size = new Size(131, 20);
 
 
@@ -258,6 +270,7 @@ namespace Shopping_List_Tracker
 
             //Delete Button
             deleteButton.Size = new Size(55, 20);
+            deleteButton.Text = "Delete";
 
 
             flpList.Controls.Add(recipeButton);
@@ -294,22 +307,56 @@ namespace Shopping_List_Tracker
 
         private void btnGenList_Click(object sender, EventArgs e)
         {
-            List<MealPlan> finalRecipeList = new List<MealPlan>();
+            List<Recipe> finalRecipeList = new List<Recipe>();
             Inventory inventory = new Inventory();
             Recipes recipe = new Recipes();
             
 
             for(int i = 0; i < mealPlans.Count; i++)
             {
-                if(mealPlans[i].date.CompareTo(DateTime.Today) >= 0)
+                if(mealPlans[i].date.CompareTo(DateTime.Today.ToString()) >= 0)
                 {
-                    finalRecipeList.Add(mealPlans[i]);
+                    finalRecipeList.Add(mealPlans[i].recipe);
                 }
             }
 
+            List<int> qtyList = new List<int>();
+            List<string> nameList = new List<string>();
+            int totalRecipe = 0;
             for(int i = 0; i < finalRecipeList.Count; i++)
             {
+                foreach (Ingredient ingredient in finalRecipeList[i].ingredients)
+                {
+                    totalRecipe++;
+                }
+            }
 
+            for(int i = totalRecipe; i >= 0+1; i--)
+            {
+                foreach (Ingredient ingredient in finalRecipeList[i-1].ingredients)
+                {
+                    if(nameList.Contains(ingredient.name))
+                    {
+                        qtyList[nameList.IndexOf(ingredient.name)] += ingredient.qty;
+                    }
+                    else
+                    {
+                        nameList.Add(ingredient.name);
+                        qtyList.Add(ingredient.qty);
+                    }
+                }
+            }
+
+            int[] theDifference = new int[qtyList.Count];
+            for (int i = 0; i < nameList.Count; i++)
+            {
+                foreach (Storage ingredient in inventory.ingredientList)
+                {
+                    if(nameList[i].Equals(ingredient.ingredient.name))
+                    {
+                        qtyList[i] -= ingredient.ingredient.qty;
+                    }
+                }
             }
         }
     }
