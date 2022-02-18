@@ -89,6 +89,7 @@ namespace Shopping_List_Tracker
             //Description
             txtNewDescription.Size = new System.Drawing.Size(275, 38);
             txtNewDescription.Font = new System.Drawing.Font("Arial", 20);
+            txtNewDescription.MaxLength = 250;
 
             //Name of Recipe
             btnNewRecipe.Size = new System.Drawing.Size(107, 38);
@@ -129,6 +130,7 @@ namespace Shopping_List_Tracker
             //Description
             txtNewDescription.Size = new System.Drawing.Size(275, 38);
             txtNewDescription.Font = new System.Drawing.Font("Arial", 20);
+            txtNewDescription.MaxLength = 250;
             txtNewDescription.Text = recipe.description;
 
             //Name of Recipe
@@ -196,9 +198,9 @@ namespace Shopping_List_Tracker
                 int count = 1;
                 int timesThroughLoop = 0;
                 recipe = recipeValues[objectGuid[0]];
-                recipe.setName(updatedControlList[0].Text);
-                recipe.setServingAmount(Int32.Parse(updatedControlList[1].Text));
-                recipe.setDesctiption(updatedControlList[2].Text);
+                recipe.name = updatedControlList[0].Text;
+                recipe.servingAmount = Int32.Parse(updatedControlList[1].Text);
+                recipe.description = updatedControlList[2].Text;
                 
                 for(int i = 3; timesThroughLoop < ingredientListSize; i += 2)
                 {

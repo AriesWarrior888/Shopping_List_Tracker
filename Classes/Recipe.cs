@@ -54,28 +54,6 @@ namespace Shopping_List_Tracker
             this.ingredients.Add(ingredients);
         }
 
-        public List<Ingredient> getIngredients()
-        {
-            return ingredients;
-        }
-         
-
-
-        public void setName(string name)
-        {
-            this.name = name;
-        }
-
-        public void setServingAmount(int amnt)
-        {
-            servingAmount = amnt;
-        }
-
-        public void setDesctiption(string description)
-        {
-            this.description = description;
-        }
-
         public void setIngredients(int location, Ingredient ingredient)
         {
             this.ingredients[location] = ingredient;         

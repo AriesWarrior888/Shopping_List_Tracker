@@ -13,17 +13,26 @@ namespace Shopping_List_Tracker
 {
     public partial class Calendar : Form
     {
+        #region Variables
         private string fullPathToFile  = string.Empty;
         private readonly string fileName = "calendarStorage.Json";
         private string jsonString = string.Empty;
+
+        //Located on the sunday of the week
         public DateTime date = DateTime.Today;
+
+        //Currently Selected Day of the Week
         public DateTime dayDate = DateTime.Today;
+
+        //Lists
         List<MealPlan> mealPlans = new List<MealPlan>();
         List<Recipe> recipeList = new List<Recipe>();
         List<Control> controlList = new List<Control>();
+        
         public bool weekView = true;
         public int[] count;
-
+        #endregion
+       
         public Calendar()
         {
             InitializeComponent();
@@ -75,32 +84,39 @@ namespace Shopping_List_Tracker
 
             date = date.AddDays(-distanceFromSunday);
             lblSunday.Text = $"Sunday {date.Month}/{date.Day}";
+            lblSunday.Tag = date.ToString();
 
             date = date.AddDays(1);
             lblMonday.Text = $"{date.DayOfWeek} {date.Month}/{date.Day}";
+            lblMonday.Tag = date.ToString();
 
             date = date.AddDays(1);
             lblTuesday.Text = $"{date.DayOfWeek} {date.Month}/{date.Day}";
+            lblTuesday.Tag = date.ToString();
 
             date = date.AddDays(1);
             lblWednesday.Text = $"{date.DayOfWeek} {date.Month}/{date.Day}";
+            lblWednesday.Tag = date.ToString();
 
             date = date.AddDays(1);
             lblThursday.Text = $"{date.DayOfWeek} {date.Month}/{date.Day}";
+            lblThursday.Tag = date.ToString();
 
             date = date.AddDays(1);
             lblFriday.Text = $"{date.DayOfWeek} {date.Month}/{date.Day}";
+            lblFriday.Tag = date.ToString();
 
             date = date.AddDays(1);
             lblSaturday.Text = $"{date.DayOfWeek} {date.Month}/{date.Day}";
+            lblSaturday.Tag = date.ToString();
 
-            
+
             #endregion
         }
 
         private void InitializeFIle()
         {
-            fullPathToFile = System.IO.Path.Combine(Program.ApplicationDirectory, fileName);
+/*            fullPathToFile = System.IO.Path.Combine(Program.ApplicationDirectory, fileName);
 
             if (System.IO.File.Exists(fullPathToFile))
             {
@@ -118,12 +134,12 @@ namespace Shopping_List_Tracker
                     setRecipes(mealPlans[i]);
                 }
                 
-            }
+            }*/
         }
 
         public void setRecipes(MealPlan plan)
         {
-            if(dayDate.ToString().CompareTo(plan.date.ToString()) == 0 )
+            if(dayDate.ToString().CompareTo(plan.date.ToString()) == 0 && !weekView)
             {
 
                 ComboBox recipeButton = new ComboBox();
@@ -186,6 +202,11 @@ namespace Shopping_List_Tracker
                 controlList.Add(recipeButton);
                 controlList.Add(numeric);
                 controlList.Add(deleteButton);
+            }
+            else
+            {
+                
+                
             }
 
         }
@@ -416,7 +437,7 @@ namespace Shopping_List_Tracker
             Inventory inventory = new Inventory();
             Recipes recipe = new Recipes();
             
-
+            //makes the final lists for the generation of the text
             for(int i = 0; i < mealPlans.Count; i++)
             {
                 if(mealPlans[i].date.CompareTo(dayDate.ToString()) >= 0)
@@ -426,6 +447,7 @@ namespace Shopping_List_Tracker
                 }
             }
 
+            //finds the total number of recipes located in the recipes, accounts for worst case scenario
             List<int> qtyList = new List<int>();
             List<string> nameList = new List<string>();
             int totalRecipe = 0;
@@ -437,6 +459,9 @@ namespace Shopping_List_Tracker
                 }
             }
 
+            /*Takes finalRecipeList which was made earlier and performs a linear scan finding each ingredient, their name and quantity
+            After that it will compare to the lists of names and qty and add them in, or increment the value if  it was already present
+            Replace with dictionary if things get too complicated*/
             for(int i = totalRecipe; i >= 0+1; i--)
             {
                 foreach (Ingredient ingredient in finalRecipeList[i-1].ingredients)
@@ -453,6 +478,7 @@ namespace Shopping_List_Tracker
                 }
             }
 
+            //subtract from the qty list and append to string
             int[] theDifference = new int[qtyList.Count];
             string outputString = "";
             for (int i = 0; i < nameList.Count; i++)
@@ -461,13 +487,18 @@ namespace Shopping_List_Tracker
                 {
                     if(nameList[i].Equals(ingredient.ingredient.name))
                     {
-                        qtyList[i] -= inventory.ingredientList[]* finalQtyList[i];
-                       
+                        for (int j = 0; j < inventory.ingredientList.Length; j++)
+                        {
+                            if(inventory.ingredientList[j].Equals(nameList[i]))
+                            {
+                                qtyList[i] -= inventory.ingredientList[0].quantity;
+                            }
+                        }                      
                     }
                 }
                 if(qtyList[i] > 0)
                 {
-                    outputString = outputString + $"You need {qtyList[i]} {nameList[i]}";
+                    outputString = outputString + $"You need {qtyList[i]} {nameList[i]}\n";
                 }
                 
             }

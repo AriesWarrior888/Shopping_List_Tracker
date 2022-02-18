@@ -108,12 +108,12 @@ namespace Shopping_List_Tracker
             }
             if (!Regex.IsMatch(controlList[1].Text, @"^[0-9]+$"))
             {
-                MessageBox.Show($"field {controlList[1].Name} has non-numbers");
+                MessageBox.Show("field Recipe Name has non-numbers");
                 return;
             }
             if (!Regex.IsMatch(controlList[4].Text, @"^[0-9]+$"))
             {
-                MessageBox.Show($"field {controlList[4].Name} has non-numbers");
+                MessageBox.Show($"An ingredient quantity box has non-numbers");
                 return;
             }
             for(int i = 6; i < controlList.Count; i += 2)
@@ -140,17 +140,17 @@ namespace Shopping_List_Tracker
             txtName.Text = recipe.name;
             txtServingCount.Text = ""+recipe.servingAmount;
             txtDescription.Text = recipe.description;
-            txtIngredient.Text = recipe.getIngredients()[0].name;
-            txtQTY.Text = "" + recipe.getIngredients()[0].qty;
+            txtIngredient.Text = recipe.ingredients[0].name;
+            txtQTY.Text = "" + recipe.ingredients[0].qty;
             controlList.Add(txtName);
             controlList.Add(txtServingCount);
             controlList.Add(txtDescription);
 
             controlList.Add(txtIngredient);
             controlList.Add(txtQTY);
-            for (int i = 1; i < recipe.getIngredients().Count; i++)
+            for (int i = 1; i < recipe.ingredients.Count; i++)
             {
-                tempCreateClick(recipe.getIngredients()[i]);
+                tempCreateClick(recipe.ingredients[i]);
             }
         }
         private void btnCancel_Click(object sender, EventArgs e)

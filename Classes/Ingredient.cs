@@ -45,9 +45,5 @@ namespace Shopping_List_Tracker
             measurement = uom;
         }
 
-        public void setUOM(UnitOfMeasurement unitOfMeasurement)
-        {
-            measurement = unitOfMeasurement;
-        }
     }
 }

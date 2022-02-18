@@ -25,15 +25,11 @@ namespace Shopping_List_Tracker
             this.CenterToScreen();
             //lables
             lblTitle.Text = "Shopping List";
-            //form
-            this.ControlBox = false;
 
         }
 
         private void LandingPage_Load(object sender, EventArgs e)
         { 
-            //Find a filePath and finish this piece of code
-            //FileManager.ReadFromFile()
             this.setControls();
         }
 
@@ -57,7 +53,6 @@ namespace Shopping_List_Tracker
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //FileManager.WriteToFile()
             this.Dispose();
         }
     }

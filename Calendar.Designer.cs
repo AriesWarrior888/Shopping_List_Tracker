@@ -30,6 +30,7 @@ namespace Shopping_List_Tracker
         private void InitializeComponent()
         {
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.btnGenList = new System.Windows.Forms.Button();
             this.btnClose = new System.Windows.Forms.Button();
             this.lblTitle = new System.Windows.Forms.Label();
             this.tcCalendar = new System.Windows.Forms.TabControl();
@@ -49,7 +50,7 @@ namespace Shopping_List_Tracker
             this.btnDayNext = new System.Windows.Forms.Button();
             this.btnDayPrevious = new System.Windows.Forms.Button();
             this.lblDay = new System.Windows.Forms.Label();
-            this.btnGenList = new System.Windows.Forms.Button();
+            this.txtSunday = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -78,6 +79,16 @@ namespace Shopping_List_Tracker
             this.splitContainer1.Size = new System.Drawing.Size(800, 450);
             this.splitContainer1.SplitterDistance = 109;
             this.splitContainer1.TabIndex = 2;
+            // 
+            // btnGenList
+            // 
+            this.btnGenList.Location = new System.Drawing.Point(702, 70);
+            this.btnGenList.Name = "btnGenList";
+            this.btnGenList.Size = new System.Drawing.Size(90, 33);
+            this.btnGenList.TabIndex = 2;
+            this.btnGenList.Text = "Generate List";
+            this.btnGenList.UseVisualStyleBackColor = true;
+            this.btnGenList.Click += new System.EventHandler(this.btnGenList_Click);
             // 
             // btnClose
             // 
@@ -111,6 +122,7 @@ namespace Shopping_List_Tracker
             // 
             // tpWeek
             // 
+            this.tpWeek.Controls.Add(this.txtSunday);
             this.tpWeek.Controls.Add(this.lblMonday);
             this.tpWeek.Controls.Add(this.lblSunday);
             this.tpWeek.Controls.Add(this.btnWeekNext);
@@ -131,7 +143,7 @@ namespace Shopping_List_Tracker
             // lblMonday
             // 
             this.lblMonday.AutoSize = true;
-            this.lblMonday.Location = new System.Drawing.Point(159, 51);
+            this.lblMonday.Location = new System.Drawing.Point(171, 51);
             this.lblMonday.Name = "lblMonday";
             this.lblMonday.Size = new System.Drawing.Size(45, 13);
             this.lblMonday.TabIndex = 1;
@@ -140,7 +152,7 @@ namespace Shopping_List_Tracker
             // lblSunday
             // 
             this.lblSunday.AutoSize = true;
-            this.lblSunday.Location = new System.Drawing.Point(54, 51);
+            this.lblSunday.Location = new System.Drawing.Point(71, 51);
             this.lblSunday.Name = "lblSunday";
             this.lblSunday.Size = new System.Drawing.Size(43, 13);
             this.lblSunday.TabIndex = 0;
@@ -148,9 +160,10 @@ namespace Shopping_List_Tracker
             // 
             // btnWeekNext
             // 
-            this.btnWeekNext.Location = new System.Drawing.Point(753, 98);
+            this.btnWeekNext.Dock = System.Windows.Forms.DockStyle.Right;
+            this.btnWeekNext.Location = new System.Drawing.Point(753, 3);
             this.btnWeekNext.Name = "btnWeekNext";
-            this.btnWeekNext.Size = new System.Drawing.Size(36, 83);
+            this.btnWeekNext.Size = new System.Drawing.Size(36, 305);
             this.btnWeekNext.TabIndex = 8;
             this.btnWeekNext.Text = ">";
             this.btnWeekNext.UseVisualStyleBackColor = true;
@@ -158,9 +171,10 @@ namespace Shopping_List_Tracker
             // 
             // btnWeekPrevious
             // 
-            this.btnWeekPrevious.Location = new System.Drawing.Point(1, 98);
+            this.btnWeekPrevious.Dock = System.Windows.Forms.DockStyle.Left;
+            this.btnWeekPrevious.Location = new System.Drawing.Point(3, 3);
             this.btnWeekPrevious.Name = "btnWeekPrevious";
-            this.btnWeekPrevious.Size = new System.Drawing.Size(36, 83);
+            this.btnWeekPrevious.Size = new System.Drawing.Size(36, 305);
             this.btnWeekPrevious.TabIndex = 7;
             this.btnWeekPrevious.Text = "<";
             this.btnWeekPrevious.UseVisualStyleBackColor = true;
@@ -169,7 +183,7 @@ namespace Shopping_List_Tracker
             // lblSaturday
             // 
             this.lblSaturday.AutoSize = true;
-            this.lblSaturday.Location = new System.Drawing.Point(684, 51);
+            this.lblSaturday.Location = new System.Drawing.Point(660, 51);
             this.lblSaturday.Name = "lblSaturday";
             this.lblSaturday.Size = new System.Drawing.Size(49, 13);
             this.lblSaturday.TabIndex = 6;
@@ -178,7 +192,7 @@ namespace Shopping_List_Tracker
             // lblFriday
             // 
             this.lblFriday.AutoSize = true;
-            this.lblFriday.Location = new System.Drawing.Point(579, 51);
+            this.lblFriday.Location = new System.Drawing.Point(572, 51);
             this.lblFriday.Name = "lblFriday";
             this.lblFriday.Size = new System.Drawing.Size(35, 13);
             this.lblFriday.TabIndex = 5;
@@ -205,7 +219,7 @@ namespace Shopping_List_Tracker
             // lblTuesday
             // 
             this.lblTuesday.AutoSize = true;
-            this.lblTuesday.Location = new System.Drawing.Point(264, 51);
+            this.lblTuesday.Location = new System.Drawing.Point(269, 51);
             this.lblTuesday.Name = "lblTuesday";
             this.lblTuesday.Size = new System.Drawing.Size(48, 13);
             this.lblTuesday.TabIndex = 2;
@@ -245,21 +259,23 @@ namespace Shopping_List_Tracker
             // 
             // btnDayNext
             // 
-            this.btnDayNext.Location = new System.Drawing.Point(753, 98);
+            this.btnDayNext.Dock = System.Windows.Forms.DockStyle.Right;
+            this.btnDayNext.Location = new System.Drawing.Point(753, 3);
             this.btnDayNext.Name = "btnDayNext";
-            this.btnDayNext.Size = new System.Drawing.Size(36, 83);
+            this.btnDayNext.Size = new System.Drawing.Size(36, 305);
             this.btnDayNext.TabIndex = 2;
-            this.btnDayNext.Text = "button2";
+            this.btnDayNext.Text = ">";
             this.btnDayNext.UseVisualStyleBackColor = true;
             this.btnDayNext.Click += new System.EventHandler(this.btnDayNext_Click);
             // 
             // btnDayPrevious
             // 
-            this.btnDayPrevious.Location = new System.Drawing.Point(1, 98);
+            this.btnDayPrevious.Dock = System.Windows.Forms.DockStyle.Left;
+            this.btnDayPrevious.Location = new System.Drawing.Point(3, 3);
             this.btnDayPrevious.Name = "btnDayPrevious";
-            this.btnDayPrevious.Size = new System.Drawing.Size(36, 83);
+            this.btnDayPrevious.Size = new System.Drawing.Size(36, 305);
             this.btnDayPrevious.TabIndex = 1;
-            this.btnDayPrevious.Text = "button1";
+            this.btnDayPrevious.Text = "<";
             this.btnDayPrevious.UseVisualStyleBackColor = true;
             this.btnDayPrevious.Click += new System.EventHandler(this.btnDayPrevious_Click);
             // 
@@ -272,15 +288,13 @@ namespace Shopping_List_Tracker
             this.lblDay.TabIndex = 0;
             this.lblDay.Text = "Today";
             // 
-            // btnGenList
+            // txtSunday
             // 
-            this.btnGenList.Location = new System.Drawing.Point(702, 70);
-            this.btnGenList.Name = "btnGenList";
-            this.btnGenList.Size = new System.Drawing.Size(90, 33);
-            this.btnGenList.TabIndex = 2;
-            this.btnGenList.Text = "Generate List";
-            this.btnGenList.UseVisualStyleBackColor = true;
-            this.btnGenList.Click += new System.EventHandler(this.btnGenList_Click);
+            this.txtSunday.Enabled = false;
+            this.txtSunday.Location = new System.Drawing.Point(48, 68);
+            this.txtSunday.Name = "txtSunday";
+            this.txtSunday.Size = new System.Drawing.Size(89, 20);
+            this.txtSunday.TabIndex = 9;
             // 
             // Calendar
             // 
@@ -326,5 +340,6 @@ namespace Shopping_List_Tracker
         private System.Windows.Forms.FlowLayoutPanel flpList;
         private System.Windows.Forms.Button btnCreate;
         private System.Windows.Forms.Button btnGenList;
+        private System.Windows.Forms.TextBox txtSunday;
     }
 }
