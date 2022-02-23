@@ -17,6 +17,7 @@ namespace Shopping_List_Tracker
         private string fullPathToFile  = string.Empty;
         private readonly string fileName = "calendarStorage.Json";
         private string jsonString = string.Empty;
+        private Dictionary<string, FlowLayoutPanel> weekFlpList= new Dictionary<string, FlowLayoutPanel>();
 
         //Located on the sunday of the week
         public DateTime date = DateTime.Today;
@@ -47,6 +48,15 @@ namespace Shopping_List_Tracker
         public void setControls()
         {
             ControlBox = false;
+
+            weekFlpList.Add("Sunday", flpSunday);
+            weekFlpList.Add("Monday", flpMonday);
+            weekFlpList.Add("Tuesday", flpTuesday);
+            weekFlpList.Add("Wednesday", flpWednesday);
+            weekFlpList.Add("Thursday", flpThursday);
+            weekFlpList.Add("Friday", flpFriday);
+            weekFlpList.Add("Saturday", flpSaturday);
+
             formatDates(0);
         }
         
@@ -203,12 +213,23 @@ namespace Shopping_List_Tracker
                 controlList.Add(numeric);
                 controlList.Add(deleteButton);
             }
-            else
+            else if (date.ToString().CompareTo(plan.date.ToString()) == 0 && weekView)
             {
-                
-                
+                Button recipeButton = new Button();
+                recipeButton.Tag = plan;
+                recipeButton.Text = plan.recipe.name + " " + plan.qty;
+                weekFlpList[date.DayOfWeek.ToString()].Controls.Add(recipeButton);
+                recipeButton.Click += new EventHandler(weekButtonClick);
+
             }
 
+        }
+
+        private void weekButtonClick(object sender, EventArgs e)
+        {
+            weekView = false;
+            setRecipes((MealPlan)(((Control)sender).Tag));
+            tcCalendar.SelectedTab = tpDay;
         }
 
         private void Calendar_Load(object sender, EventArgs e)
@@ -252,8 +273,10 @@ namespace Shopping_List_Tracker
                 for (int i = 0; i < temp.Count; i++)
                 {
                     setRecipes(temp[i]);
+                    formatDates(1);
                 }
-                
+                formatDates(-7);
+
             }
         }
 
@@ -275,7 +298,9 @@ namespace Shopping_List_Tracker
                 for (int i = 0; i < temp.Count; i++)
                 {
                     setRecipes(temp[i]);
+                    formatDates(1);
                 }
+                formatDates(-7);
 
             }
         }
@@ -462,7 +487,7 @@ namespace Shopping_List_Tracker
             /*Takes finalRecipeList which was made earlier and performs a linear scan finding each ingredient, their name and quantity
             After that it will compare to the lists of names and qty and add them in, or increment the value if  it was already present
             Replace with dictionary if things get too complicated*/
-            for(int i = totalRecipe; i >= 0+1; i--)
+            for(int i = totalRecipe; i >= 1; i--)
             {
                 foreach (Ingredient ingredient in finalRecipeList[i-1].ingredients)
                 {
