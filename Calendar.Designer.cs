@@ -50,7 +50,13 @@ namespace Shopping_List_Tracker
             this.btnDayNext = new System.Windows.Forms.Button();
             this.btnDayPrevious = new System.Windows.Forms.Button();
             this.lblDay = new System.Windows.Forms.Label();
-            this.txtSunday = new System.Windows.Forms.TextBox();
+            this.flpSunday = new System.Windows.Forms.FlowLayoutPanel();
+            this.flpMonday = new System.Windows.Forms.FlowLayoutPanel();
+            this.flpTuesday = new System.Windows.Forms.FlowLayoutPanel();
+            this.flpWednesday = new System.Windows.Forms.FlowLayoutPanel();
+            this.flpThursday = new System.Windows.Forms.FlowLayoutPanel();
+            this.flpFriday = new System.Windows.Forms.FlowLayoutPanel();
+            this.flpSaturday = new System.Windows.Forms.FlowLayoutPanel();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -122,7 +128,13 @@ namespace Shopping_List_Tracker
             // 
             // tpWeek
             // 
-            this.tpWeek.Controls.Add(this.txtSunday);
+            this.tpWeek.Controls.Add(this.flpSaturday);
+            this.tpWeek.Controls.Add(this.flpFriday);
+            this.tpWeek.Controls.Add(this.flpThursday);
+            this.tpWeek.Controls.Add(this.flpTuesday);
+            this.tpWeek.Controls.Add(this.flpWednesday);
+            this.tpWeek.Controls.Add(this.flpMonday);
+            this.tpWeek.Controls.Add(this.flpSunday);
             this.tpWeek.Controls.Add(this.lblMonday);
             this.tpWeek.Controls.Add(this.lblSunday);
             this.tpWeek.Controls.Add(this.btnWeekNext);
@@ -183,7 +195,7 @@ namespace Shopping_List_Tracker
             // lblSaturday
             // 
             this.lblSaturday.AutoSize = true;
-            this.lblSaturday.Location = new System.Drawing.Point(660, 51);
+            this.lblSaturday.Location = new System.Drawing.Point(671, 51);
             this.lblSaturday.Name = "lblSaturday";
             this.lblSaturday.Size = new System.Drawing.Size(49, 13);
             this.lblSaturday.TabIndex = 6;
@@ -192,7 +204,7 @@ namespace Shopping_List_Tracker
             // lblFriday
             // 
             this.lblFriday.AutoSize = true;
-            this.lblFriday.Location = new System.Drawing.Point(572, 51);
+            this.lblFriday.Location = new System.Drawing.Point(578, 51);
             this.lblFriday.Name = "lblFriday";
             this.lblFriday.Size = new System.Drawing.Size(35, 13);
             this.lblFriday.TabIndex = 5;
@@ -210,7 +222,7 @@ namespace Shopping_List_Tracker
             // lblWednesday
             // 
             this.lblWednesday.AutoSize = true;
-            this.lblWednesday.Location = new System.Drawing.Point(369, 51);
+            this.lblWednesday.Location = new System.Drawing.Point(359, 51);
             this.lblWednesday.Name = "lblWednesday";
             this.lblWednesday.Size = new System.Drawing.Size(64, 13);
             this.lblWednesday.TabIndex = 3;
@@ -219,7 +231,7 @@ namespace Shopping_List_Tracker
             // lblTuesday
             // 
             this.lblTuesday.AutoSize = true;
-            this.lblTuesday.Location = new System.Drawing.Point(269, 51);
+            this.lblTuesday.Location = new System.Drawing.Point(266, 51);
             this.lblTuesday.Name = "lblTuesday";
             this.lblTuesday.Size = new System.Drawing.Size(48, 13);
             this.lblTuesday.TabIndex = 2;
@@ -288,13 +300,54 @@ namespace Shopping_List_Tracker
             this.lblDay.TabIndex = 0;
             this.lblDay.Text = "Today";
             // 
-            // txtSunday
+            // flpSunday
             // 
-            this.txtSunday.Enabled = false;
-            this.txtSunday.Location = new System.Drawing.Point(48, 68);
-            this.txtSunday.Name = "txtSunday";
-            this.txtSunday.Size = new System.Drawing.Size(89, 20);
-            this.txtSunday.TabIndex = 9;
+            this.flpSunday.Location = new System.Drawing.Point(44, 66);
+            this.flpSunday.Name = "flpSunday";
+            this.flpSunday.Size = new System.Drawing.Size(95, 241);
+            this.flpSunday.TabIndex = 9;
+            // 
+            // flpMonday
+            // 
+            this.flpMonday.Location = new System.Drawing.Point(144, 66);
+            this.flpMonday.Name = "flpMonday";
+            this.flpMonday.Size = new System.Drawing.Size(95, 241);
+            this.flpMonday.TabIndex = 10;
+            // 
+            // flpTuesday
+            // 
+            this.flpTuesday.Location = new System.Drawing.Point(245, 66);
+            this.flpTuesday.Name = "flpTuesday";
+            this.flpTuesday.Size = new System.Drawing.Size(95, 241);
+            this.flpTuesday.TabIndex = 12;
+            // 
+            // flpWednesday
+            // 
+            this.flpWednesday.Location = new System.Drawing.Point(346, 66);
+            this.flpWednesday.Name = "flpWednesday";
+            this.flpWednesday.Size = new System.Drawing.Size(95, 241);
+            this.flpWednesday.TabIndex = 11;
+            // 
+            // flpThursday
+            // 
+            this.flpThursday.Location = new System.Drawing.Point(447, 66);
+            this.flpThursday.Name = "flpThursday";
+            this.flpThursday.Size = new System.Drawing.Size(95, 241);
+            this.flpThursday.TabIndex = 12;
+            // 
+            // flpFriday
+            // 
+            this.flpFriday.Location = new System.Drawing.Point(548, 66);
+            this.flpFriday.Name = "flpFriday";
+            this.flpFriday.Size = new System.Drawing.Size(95, 241);
+            this.flpFriday.TabIndex = 12;
+            // 
+            // flpSaturday
+            // 
+            this.flpSaturday.Location = new System.Drawing.Point(649, 66);
+            this.flpSaturday.Name = "flpSaturday";
+            this.flpSaturday.Size = new System.Drawing.Size(95, 241);
+            this.flpSaturday.TabIndex = 13;
             // 
             // Calendar
             // 
@@ -340,6 +393,12 @@ namespace Shopping_List_Tracker
         private System.Windows.Forms.FlowLayoutPanel flpList;
         private System.Windows.Forms.Button btnCreate;
         private System.Windows.Forms.Button btnGenList;
-        private System.Windows.Forms.TextBox txtSunday;
+        private System.Windows.Forms.FlowLayoutPanel flpSaturday;
+        private System.Windows.Forms.FlowLayoutPanel flpFriday;
+        private System.Windows.Forms.FlowLayoutPanel flpThursday;
+        private System.Windows.Forms.FlowLayoutPanel flpTuesday;
+        private System.Windows.Forms.FlowLayoutPanel flpWednesday;
+        private System.Windows.Forms.FlowLayoutPanel flpMonday;
+        private System.Windows.Forms.FlowLayoutPanel flpSunday;
     }
 }
