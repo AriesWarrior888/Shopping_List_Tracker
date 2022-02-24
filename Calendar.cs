@@ -116,7 +116,7 @@ namespace Shopping_List_Tracker
 
         private void InitializeFIle()
         {
-/*            fullPathToFile = System.IO.Path.Combine(Program.ApplicationDirectory, fileName);
+            fullPathToFile = System.IO.Path.Combine(Program.ApplicationDirectory, fileName);
 
             if (System.IO.File.Exists(fullPathToFile))
             {
@@ -134,7 +134,7 @@ namespace Shopping_List_Tracker
                     setRecipes(mealPlans[i]);
                 }
                 
-            }*/
+            }
         }
 
         public void setRecipes(MealPlan plan)
@@ -243,9 +243,10 @@ namespace Shopping_List_Tracker
             {
                 if (flpList.Controls.Count > 0)
                 {
-                    foreach (Control control in flpList.Controls)
+                    for (int i = flpList.Controls.Count; i > 0; i--)
                     {
-                        flpList.Controls.Remove(control);
+                        flpList.Controls.RemoveAt(i - 1);
+                        controlList.RemoveAt(i - 1);
                     }
                 }
 
@@ -266,9 +267,10 @@ namespace Shopping_List_Tracker
             {
                 if (flpList.Controls.Count > 0)
                 {
-                    foreach (Control control in flpList.Controls)
+                    for (int i = flpList.Controls.Count; i > 0; i--)
                     {
-                        flpList.Controls.Remove(control);
+                        flpList.Controls.RemoveAt(i - 1);
+                        controlList.RemoveAt(i - 1);
                     }
                 }
 
@@ -289,9 +291,10 @@ namespace Shopping_List_Tracker
             {
                 if (flpList.Controls.Count > 0)
                 {
-                    foreach (Control control in flpList.Controls)
+                    for(int i = flpList.Controls.Count; i > 0; i--)
                     {
-                        flpList.Controls.Remove(control);
+                        flpList.Controls.RemoveAt(i - 1);
+                        controlList.RemoveAt(i - 1);
                     }
                 }
 
@@ -313,9 +316,10 @@ namespace Shopping_List_Tracker
             {
                 if (flpList.Controls.Count > 0)
                 {
-                    foreach (Control control in flpList.Controls)
+                    for (int i = flpList.Controls.Count; i > 0; i--)
                     {
-                        flpList.Controls.Remove(control);
+                        flpList.Controls.RemoveAt(i - 1);
+                        controlList.RemoveAt(i - 1);
                     }
                 }
 
@@ -406,7 +410,6 @@ namespace Shopping_List_Tracker
             MealPlan newPlan = new MealPlan();
             newPlan.date = dayDate.ToString();
             mealPlans.Add(newPlan);
-            save();
         }
 
         private void numericUpDown_ValueChanged(object sender, EventArgs e)
@@ -424,7 +427,7 @@ namespace Shopping_List_Tracker
                 if(recipeList[i].name.Equals(((Control)sender).Text))
                 {
                     ((Control)sender).Tag = recipeList[i].guid;
-                    mealPlans[flpList.Controls.IndexOf((Control)sender) / 3].recipe = recipeList[i];
+                    mealPlans[controlList.IndexOf((Control)sender) / 3].recipe = recipeList[i];
                 }
             }
             save();
@@ -489,21 +492,31 @@ namespace Shopping_List_Tracker
                     {
                         for (int j = 0; j < inventory.ingredientList.Length; j++)
                         {
-                            if(inventory.ingredientList[j].Equals(nameList[i]))
+                            if(inventory.ingredientList[j].ingredient.name.Equals(nameList[i]))
                             {
                                 qtyList[i] -= inventory.ingredientList[0].quantity;
                             }
-                        }                      
+                        }
+                        if (qtyList[i] > 0)
+                        {
+                            outputString = outputString + $"You need {qtyList[i]} {nameList[i]}\n";
+                        }
                     }
+                    
                 }
-                if(qtyList[i] > 0)
-                {
-                    outputString = outputString + $"You need {qtyList[i]} {nameList[i]}\n";
-                }
+
                 
             }
 
-            MessageBox.Show(outputString);
+            if(!outputString.Equals(string.Empty))
+            {
+                MessageBox.Show(outputString);
+            }
+            else
+            {
+                MessageBox.Show("You do not need any ingredients");
+            }
+            
         }
     }
 }
