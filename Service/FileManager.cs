@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using PdfSharp.Pdf;
+using PdfSharp.Drawing;
 
 namespace Shopping_List_Tracker
 {
@@ -11,11 +13,10 @@ namespace Shopping_List_Tracker
     {
         public static bool ReadFromFile(string fileName, out string results)
         {
-            var path = fileName;
 
             try
             {
-                results = File.ReadAllText(path);
+                results = File.ReadAllText(fileName);
                 return true;
             }
 
@@ -29,11 +30,10 @@ namespace Shopping_List_Tracker
 
         public static bool WriteToFile(string fileName, string contents)
         {
-            var path = fileName;
 
             try
             {
-                File.WriteAllText(path, contents);
+                File.WriteAllText(fileName, contents);
                 return true;
             }
 
@@ -43,5 +43,7 @@ namespace Shopping_List_Tracker
                 return false;
             }
         }
+
+        
     }
 }

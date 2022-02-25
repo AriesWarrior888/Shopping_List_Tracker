@@ -18,13 +18,8 @@ namespace Shopping_List_Tracker
         }
         public enum UnitOfMeasurement
         {
-            Cup = 0,
-            Ounce = 1,
-            Pint = 2,
-            Gallon = 3,
-            Tablespoon = 4,
-            Teaspoon = 5,
-            nothing = 6,
+            gram = 0,
+            count = 1
         }
 
         public UnitOfMeasurement measurement

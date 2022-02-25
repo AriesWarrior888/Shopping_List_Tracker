@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Text.Json;
+using PdfSharp.Pdf;
 
 namespace Shopping_List_Tracker
 {
@@ -18,6 +19,7 @@ namespace Shopping_List_Tracker
         private readonly string fileName = "calendarStorage.Json";
         private string jsonString = string.Empty;
         private Dictionary<string, FlowLayoutPanel> weekFlpList= new Dictionary<string, FlowLayoutPanel>();
+        private Dictionary<DateTime, Dictionary<Guid, MealPlan>> dicMealPLan = new Dictionary<DateTime, Dictionary<Guid, MealPlan>>();
 
         //Located on the sunday of the week
         public DateTime date = DateTime.Today;
@@ -26,7 +28,6 @@ namespace Shopping_List_Tracker
         public DateTime dayDate = DateTime.Today;
 
         //Lists
-        List<MealPlan> mealPlans = new List<MealPlan>();
         List<Recipe> recipeList = new List<Recipe>();
         List<Control> controlList = new List<Control>();
         
@@ -37,11 +38,10 @@ namespace Shopping_List_Tracker
         public Calendar()
         {
             InitializeComponent();
+            setControls();
             System.Threading.Thread.CurrentThread.CurrentCulture = System.Globalization.CultureInfo.CreateSpecificCulture("en-GB");
             InitializeFIle();
-
-            setControls();
-           
+            loadRecipesFromFile();
         }
 
 
@@ -131,17 +131,23 @@ namespace Shopping_List_Tracker
             if (System.IO.File.Exists(fullPathToFile))
             {
                 FileManager.ReadFromFile(fullPathToFile, out jsonString);
-                mealPlans = JsonSerializer.Deserialize<List<MealPlan>>(jsonString);
-                if (flpList.Controls.Count > 0)
+                List<MealPlan> lstMealPlan = JsonSerializer.Deserialize<List<MealPlan>>(jsonString);
+
+                for (int i = 0; i < lstMealPlan.Count; i++)
                 {
-                    foreach (Control control in flpList.Controls)
+                    DateTime date = DateTime.Parse(lstMealPlan[i].date);
+
+                    if (this.dicMealPLan.Keys.Contains(date))
                     {
-                        flpList.Controls.Remove(control);
+                        dicMealPLan[date].Add(lstMealPlan[i].recipe.guid, lstMealPlan[i]); 
                     }
-                }
-                for (int i = 0; i < mealPlans.Count; i++)
-                {
-                    setRecipes(mealPlans[i]);
+                    else
+                    {
+                        Dictionary<Guid, MealPlan> temp = new Dictionary<Guid, MealPlan>();
+                        temp.Add(lstMealPlan[i].recipe.guid, lstMealPlan[i]);
+                        dicMealPLan.Add(DateTime.Parse(lstMealPlan[i].date), temp);
+                    }
+                    
                 }
                 
             }
@@ -155,16 +161,7 @@ namespace Shopping_List_Tracker
                 ComboBox recipeButton = new ComboBox();
                 NumericUpDown numeric = new NumericUpDown();
                 Button deleteButton = new Button();
-                Recipes frmRecipe = new Recipes();
-                string tempString = "";
-
-
-                if (System.IO.File.Exists(frmRecipe.fullPathToFile))
-                {
-                    FileManager.ReadFromFile(frmRecipe.fullPathToFile, out tempString);
-                    recipeList = JsonSerializer.Deserialize<List<Recipe>>(tempString);
-                }
-
+               
                 String[] recipes = new String[recipeList.Count];
                 count = new int[recipeList.Count];
 
@@ -189,8 +186,7 @@ namespace Shopping_List_Tracker
                 }
                 recipeButton.SelectedIndex = index;
                 recipeButton.Size = new Size(131, 20);
-                recipeButton.Tag = plan.recipe.guid;
-                recipeButton.SelectedValueChanged += new EventHandler(comboBox_ValueChanged);
+                recipeButton.Tag = plan;
 
 
 
@@ -198,11 +194,11 @@ namespace Shopping_List_Tracker
                 //Numeric Up Down
                 numeric.Size = new Size(30, 20);
                 numeric.Value = plan.qty;
-                numeric.ValueChanged += new EventHandler(numericUpDown_ValueChanged);
 
                 //Delete Button
                 deleteButton.Size = new Size(55, 20);
                 deleteButton.Text = "Delete";
+                deleteButton.Click += new EventHandler(this.btnDelete_Click);
 
 
                 flpList.Controls.Add(recipeButton);
@@ -244,7 +240,19 @@ namespace Shopping_List_Tracker
                 WriteIndented = true
             };
 
-            jsonString = JsonSerializer.Serialize(mealPlans, options);
+            List<MealPlan> lstMealPlan = new List<MealPlan>();
+
+            
+            foreach (Dictionary<Guid, MealPlan> dic in dicMealPLan.Values)
+            {
+                foreach (MealPlan mealPlan in dic.Values)
+                {
+                    lstMealPlan.Add(mealPlan);
+                }
+                
+            }
+
+            jsonString = JsonSerializer.Serialize(lstMealPlan, options);
             FileManager.WriteToFile(fullPathToFile, jsonString);
   
         }
@@ -257,61 +265,65 @@ namespace Shopping_List_Tracker
 
         private void btnWeekPrevious_Click(object sender, EventArgs e)
         {
+            savesMealPlans();
             weekView = true;
             formatDates(-7);
-            List<MealPlan> temp = determineDate(dayDate, mealPlans);
-            if(System.IO.File.Exists(fullPathToFile))
-            {
-                if (flpList.Controls.Count > 0)
-                {
-                    for (int i = flpList.Controls.Count; i > 0; i--)
-                    {
-                        flpList.Controls.RemoveAt(i - 1);
-                        controlList.RemoveAt(i - 1);
-                    }
-                }
-
-                for (int i = 0; i < temp.Count; i++)
-                {
-                    setRecipes(temp[i]);
-                    formatDates(1);
-                }
-                formatDates(-7);
-
-            }
         }
 
         private void btnWeekNext_Click(object sender, EventArgs e)
         {
+            savesMealPlans();
             weekView = true;
-            formatDates(7);
-            List<MealPlan> temp = determineDate(dayDate, mealPlans);
-            if (System.IO.File.Exists(fullPathToFile))
-            {
-                if (flpList.Controls.Count > 0)
-                {
-                    for (int i = flpList.Controls.Count; i > 0; i--)
-                    {
-                        flpList.Controls.RemoveAt(i - 1);
-                        controlList.RemoveAt(i - 1);
-                    }
-                }
+            formatDates(-7);
 
-                for (int i = 0; i < temp.Count; i++)
-                {
-                    setRecipes(temp[i]);
-                    formatDates(1);
-                }
-                formatDates(-7);
-
-            }
+        
         }
 
+        private Recipe getRecipeFromList(string recipeName)
+        {
+            foreach(Recipe recipe in recipeList)
+            {
+                if(recipe.name == recipeName)
+                {
+                    return recipe;
+                }
+            }
+            return null;
+        }
+        private void savesMealPlans()
+        {
+            if (flpList.Controls.Count > 0)
+            {
+                Dictionary<Guid, MealPlan> todayMealPlan = new Dictionary<Guid, MealPlan>();
+                for (int i = 0; i < flpList.Controls.Count; i++)
+                {
+                    // 0 is recipe name
+                    // 1 is qty
+                    // 2 delete button
+                    Recipe recipe = new Recipe(flpList.Controls[i].Text, 0, "");
+                    i++;
+
+                    MealPlan mealPlan = new MealPlan(recipe, int.Parse(flpList.Controls[i].Text), dayDate.ToString());
+                    i++;
+
+                    Recipe rr = getRecipeFromList(recipe.name);
+                    todayMealPlan.Add(rr.guid, mealPlan);
+                }
+
+                dicMealPLan[dayDate] = todayMealPlan;
+                save(); 
+
+            }
+            
+        }
         private void btnDayPrevious_Click(object sender, EventArgs e)
         {
+            savesMealPlans();
+
             weekView = false;
             formatDates(-1);
-            List<MealPlan> temp = determineDate(dayDate, mealPlans);
+            
+           
             if (System.IO.File.Exists(fullPathToFile))
             {
                 if (flpList.Controls.Count > 0)
@@ -319,14 +331,15 @@ namespace Shopping_List_Tracker
                     for(int i = flpList.Controls.Count; i > 0; i--)
                     {
                         flpList.Controls.RemoveAt(i - 1);
-                        controlList.RemoveAt(i - 1);
                     }
                 }
 
-                for (int i = 0; i < temp.Count; i++)
+                foreach (MealPlan mealplan in dicMealPLan[dayDate].Values)
                 {
-                    setRecipes(temp[i]);
+                    setRecipes(mealplan);                   
                 }
+
+                
 
             }
 
@@ -334,42 +347,48 @@ namespace Shopping_List_Tracker
 
         private void btnDayNext_Click(object sender, EventArgs e)
         {
+            savesMealPlans();
             weekView = false;
             formatDates(1);
-            List<MealPlan> temp = determineDate(dayDate, mealPlans);
-            if (System.IO.File.Exists(fullPathToFile))
+            
+            if (flpList.Controls.Count > 0)
             {
-                if (flpList.Controls.Count > 0)
+                for (int i = flpList.Controls.Count; i > 0; i--)
                 {
-                    for (int i = flpList.Controls.Count; i > 0; i--)
-                    {
-                        flpList.Controls.RemoveAt(i - 1);
-                        controlList.RemoveAt(i - 1);
-                    }
-                }
+                    flpList.Controls.RemoveAt(i - 1);
 
-                for (int i = 0; i < temp.Count; i++)
+                }
+            }
+            if (dicMealPLan.Keys.Contains(dayDate))
+            {
+                foreach (MealPlan mealplan in dicMealPLan[dayDate].Values)
                 {
-                    setRecipes(temp[i]);
+                    setRecipes(mealplan);
                 }
 
             }
 
         }
 
-        private List<MealPlan> determineDate(DateTime date, List<MealPlan> list)
+
+        private void loadRecipesFromFile()
         {
-            List<MealPlan> returnList = new List<MealPlan>();
-            
-            foreach (MealPlan mealPlan in list)
+            Recipes frmRecipe = new Recipes();
+            string tempString = "";
+            if (System.IO.File.Exists(frmRecipe.fullPathToFile))
             {
-                if (mealPlan.date.ToString().CompareTo(date.ToString()) == 0)
-                {
-                    returnList.Add(mealPlan);
-                }
+                FileManager.ReadFromFile(System.IO.Path.Combine(Program.ApplicationDirectory, frmRecipe.fileName), out tempString);
+            }
+            else
+            {
+                MessageBox.Show("Please set up a recipe before using the calendar");
+           
             }
 
-            return returnList;
+
+ 
+            recipeList = JsonSerializer.Deserialize<List<Recipe>>(tempString);
+      
         }
 
         private void btnCreate_Click(object sender, EventArgs e)
@@ -378,22 +397,9 @@ namespace Shopping_List_Tracker
             ComboBox recipeButton = new ComboBox();
             NumericUpDown numeric = new NumericUpDown();
             Button deleteButton = new Button();
-            string tempString = "";
-            
-            Recipes frmRecipe = new Recipes();
-            if(System.IO.File.Exists(frmRecipe.fullPathToFile))
-            {
-                FileManager.ReadFromFile(System.IO.Path.Combine(Program.ApplicationDirectory, frmRecipe.fileName), out tempString);
-            }
-            else
-            {
-                MessageBox.Show("Please set up a recipe before using the calendar");
-                return;
-            }
-
+           
             
             
-            recipeList = JsonSerializer.Deserialize<List<Recipe>>(tempString);
             String[] recipes = new String[recipeList.Count];
             count = new int[recipeList.Count];
             
@@ -403,26 +409,21 @@ namespace Shopping_List_Tracker
                 count[i] = recipeList[i].servingAmount;
             }
 
-            
-
-            
-
 
             recipeButton.DropDownStyle = ComboBoxStyle.DropDownList;
             recipeButton.Items.AddRange(recipes);
-            recipeButton.SelectedValueChanged += new EventHandler(comboBox_ValueChanged);
             recipeButton.Size = new Size(131, 20);
 
 
 
             //Numeric Up Down
             numeric.Size = new Size(30, 20);
-            numeric.ValueChanged += new EventHandler(numericUpDown_ValueChanged);
 
             //Delete Button
             deleteButton.Size = new Size(55, 20);
             deleteButton.Text = "Delete";
-
+            deleteButton.Click += new EventHandler(this.btnDelete_Click);
+            
 
             flpList.Controls.Add(recipeButton);
             flpList.Controls.Add(numeric);
@@ -434,114 +435,117 @@ namespace Shopping_List_Tracker
 
             MealPlan newPlan = new MealPlan();
             newPlan.date = dayDate.ToString();
-            mealPlans.Add(newPlan);
         }
 
-        private void numericUpDown_ValueChanged(object sender, EventArgs e)
+        private void btnDelete_Click(Object sender, EventArgs e)
         {
-            int location = flpList.Controls.IndexOf((Control)sender)/3;
-            count[location]++;
-            mealPlans[location].qty += 1;
-            save();
+            flpList.Controls.RemoveAt(flpList.Controls.IndexOf((Control)sender) - 1);
+            flpList.Controls.RemoveAt(flpList.Controls.IndexOf((Control)sender) - 1);
+            flpList.Controls.RemoveAt(flpList.Controls.IndexOf((Control)sender));
         }
 
-        private void comboBox_ValueChanged(object sender, EventArgs e)
+        private Dictionary<string, int> getNeededIngredients()
         {
-            for(int i = 0; i < recipeList.Count; i++)
+            Dictionary<string, int> dicAllIngredients = new Dictionary<string, int>();
+            foreach (Dictionary<Guid, MealPlan> dictionary in dicMealPLan.Values)
             {
-                if(recipeList[i].name.Equals(((Control)sender).Text))
+                foreach (MealPlan mealPlan in dictionary.Values)
                 {
-                    ((Control)sender).Tag = recipeList[i].guid;
-                    mealPlans[controlList.IndexOf((Control)sender) / 3].recipe = recipeList[i];
-                }
-            }
-            save();
-        }
-
-        private void btnGenList_Click(object sender, EventArgs e)
-        {
-            List<Recipe> finalRecipeList = new List<Recipe>();
-            List<int> finalQtyList = new List<int>();
-            Inventory inventory = new Inventory();
-            Recipes recipe = new Recipes();
-            
-            //makes the final lists for the generation of the text
-            for(int i = 0; i < mealPlans.Count; i++)
-            {
-                if(mealPlans[i].date.CompareTo(dayDate.ToString()) >= 0)
-                {
-                    finalRecipeList.Add(mealPlans[i].recipe);
-                    finalQtyList.Add(mealPlans[i].qty);
-                }
-            }
-
-            //finds the total number of recipes located in the recipes, accounts for worst case scenario
-            List<int> qtyList = new List<int>();
-            List<string> nameList = new List<string>();
-            int totalRecipe = 0;
-            for(int i = 0; i < finalRecipeList.Count; i++)
-            {
-                foreach (Ingredient ingredient in finalRecipeList[i].ingredients)
-                {
-                    totalRecipe++;
-                }
-            }
-
-            /*Takes finalRecipeList which was made earlier and performs a linear scan finding each ingredient, their name and quantity
-            After that it will compare to the lists of names and qty and add them in, or increment the value if  it was already present
-            Replace with dictionary if things get too complicated*/
-            for(int i = totalRecipe; i >= 1; i--)
-            {
-                foreach (Ingredient ingredient in finalRecipeList[i-1].ingredients)
-                {
-                    if(nameList.Contains(ingredient.name))
+                    if ((DateTime.Parse(mealPlan.date).CompareTo(new DateTime(2021,10,01)) >= 0))
                     {
-                        qtyList[nameList.IndexOf(ingredient.name)] += finalQtyList[i - 1] * ingredient.qty;
-                    }
-                    else
-                    {
-                        nameList.Add(ingredient.name);
-                        qtyList.Add(finalQtyList[i - 1] * ingredient.qty);
-                    }
-                }
-            }
-
-            //subtract from the qty list and append to string
-            int[] theDifference = new int[qtyList.Count];
-            string outputString = "";
-            for (int i = 0; i < nameList.Count; i++)
-            {
-                foreach (Storage ingredient in inventory.ingredientList)
-                {
-                    if(nameList[i].Equals(ingredient.ingredient.name))
-                    {
-                        for (int j = 0; j < inventory.ingredientList.Length; j++)
+                        foreach (Recipe recipe in recipeList)
                         {
-                            if(inventory.ingredientList[j].ingredient.name.Equals(nameList[i]))
+                            if (recipe.name.Equals(mealPlan.recipe.name))
                             {
-                                qtyList[i] -= inventory.ingredientList[0].quantity;
+                                foreach (Ingredient ingredient in recipe.ingredients)
+                                {
+                                    if (dicAllIngredients.Keys.Contains(ingredient.name))
+                                    {
+                                        dicAllIngredients[ingredient.name] += ingredient.qty * mealPlan.qty;
+                                    }
+                                    else
+                                    {
+                                        dicAllIngredients.Add(ingredient.name, ingredient.qty * mealPlan.qty);
+                                    }
+                                }
                             }
-                        }
-                        if (qtyList[i] > 0)
-                        {
-                            outputString = outputString + $"You need {qtyList[i]} {nameList[i]}\n";
                         }
                     }
                     
                 }
+            }
+            return dicAllIngredients;
+        }
+        
+        private Dictionary<string, int> getInventory()
+        {
+            Dictionary<string, int> inventory = new Dictionary<string, int>();
+            string file = System.IO.Path.Combine(Program.ApplicationDirectory, "inventory.Json");
+            string jsonString = "";
 
+            if (System.IO.File.Exists(file))
+            {
+                FileManager.ReadFromFile(file, out jsonString);
+                List<Storage> deserializedList = JsonSerializer.Deserialize<List<Storage>>(jsonString);
+                foreach (Storage storage in deserializedList)
+                {
+                    if(inventory.Keys.Contains(storage.ingredient.name))
+                    {
+                        inventory[storage.ingredient.name] += storage.quantity;
+                    }
+                    else
+                    {
+                        inventory.Add(storage.ingredient.name, storage.quantity);
+                    }
+                }
+            }
+            return inventory;
+            
+        }
+        private void btnGenList_Click(object sender, EventArgs e)
+        {
+            savesMealPlans();
+            Dictionary<string, int> neededIngredients = getNeededIngredients();
+            Dictionary<string, int> storedIngredients = getInventory();
+            string output = string.Empty;
+
+            foreach (string name in storedIngredients.Keys)
+            {
+                if(neededIngredients.Keys.Contains(name))
+                {
+                    neededIngredients[name] -= storedIngredients[name];
+                }
+                
+            }
+            foreach (KeyValuePair<string, int> pair in neededIngredients)
+            {
+                if(pair.Value > 0 )
+                {
+                    output = output + pair.Key + ":" + pair.Value + "\n";
+                }
+                else
+                {
+
+                }
                 
             }
 
-            if(!outputString.Equals(string.Empty))
+            string filePath = System.IO.Path.Combine(Program.ApplicationDirectory, $"Shopping List{DateTime.Today.ToString("yyyyMMdd")}.txt");
+            if(FileManager.WriteToFile(filePath, output))
             {
-                MessageBox.Show(outputString);
+                MessageBox.Show($"Your Shopping List has been saved successfully to {filePath}");
             }
             else
             {
-                MessageBox.Show("You do not need any ingredients");
+                MessageBox.Show("Failed to write to file");
             }
             
+
+            
         }
+
+     
+
+        
     }
 }

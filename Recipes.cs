@@ -204,7 +204,7 @@ namespace Shopping_List_Tracker
                 
                 for(int i = 3; timesThroughLoop < ingredientListSize; i += 2)
                 {
-                    recipe.setIngredients(timesThroughLoop, new Ingredient(updatedControlList[i].Text, Int32.Parse(updatedControlList[i + 1].Text), Ingredient.UnitOfMeasurement.nothing));
+                    recipe.setIngredients(timesThroughLoop, new Ingredient(updatedControlList[i].Text, Int32.Parse(updatedControlList[i + 1].Text), Ingredient.UnitOfMeasurement.count));
                     if(i > 3)
                     {
                         count += 2;
