@@ -48,7 +48,7 @@ namespace Shopping_List_Tracker
         public void setControls()
         {
             ControlBox = false;
-
+            
             weekFlpList.Add("Sunday", flpSunday);
             weekFlpList.Add("Monday", flpMonday);
             weekFlpList.Add("Tuesday", flpTuesday);
@@ -56,8 +56,11 @@ namespace Shopping_List_Tracker
             weekFlpList.Add("Thursday", flpThursday);
             weekFlpList.Add("Friday", flpFriday);
             weekFlpList.Add("Saturday", flpSaturday);
+            
+
 
             formatDates(0);
+            
         }
         
         public void formatDates(int direction)
@@ -121,6 +124,9 @@ namespace Shopping_List_Tracker
             lblSaturday.Tag = date.ToString();
 
 
+            date = date.AddDays(-6);
+
+
             #endregion
         }
 
@@ -153,11 +159,32 @@ namespace Shopping_List_Tracker
             }
         }
 
+        
+        private void function()
+        {
+            if (flpList.Controls.Count > 0)
+            {
+                for (int i = flpList.Controls.Count; i > 0; i--)
+                {
+                    flpList.Controls.RemoveAt(i - 1);
+                }
+            }
+        }
+        public void functionForWeek()
+        {
+            foreach (FlowLayoutPanel flp in weekFlpList.Values)
+            {
+                for (int i = flp.Controls.Count; i > 0; i--)
+                {
+                    flp.Controls.RemoveAt(i - 1);
+                }
+            }
+        }
+
         public void setRecipes(MealPlan plan)
         {
             if(dayDate.ToString().CompareTo(plan.date.ToString()) == 0 && !weekView)
             {
-
                 ComboBox recipeButton = new ComboBox();
                 NumericUpDown numeric = new NumericUpDown();
                 Button deleteButton = new Button();
@@ -209,12 +236,12 @@ namespace Shopping_List_Tracker
                 controlList.Add(numeric);
                 controlList.Add(deleteButton);
             }
-            else if (date.ToString().CompareTo(plan.date.ToString()) == 0 && weekView)
+            else if (weekView)
             {
                 Button recipeButton = new Button();
                 recipeButton.Tag = plan;
                 recipeButton.Text = plan.recipe.name + " " + plan.qty;
-                weekFlpList[date.DayOfWeek.ToString()].Controls.Add(recipeButton);
+                weekFlpList[DateTime.Parse(plan.date).DayOfWeek.ToString()].Controls.Add(recipeButton);
                 recipeButton.Click += new EventHandler(weekButtonClick);
 
             }
@@ -223,9 +250,25 @@ namespace Shopping_List_Tracker
 
         private void weekButtonClick(object sender, EventArgs e)
         {
-            weekView = false;
-            setRecipes((MealPlan)(((Control)sender).Tag));
+            weekView = false; 
+            function();
+            dayDate = DateTime.Parse(((MealPlan)(((Control)sender).Tag)).date);
+            
+            if(dicMealPLan.Keys.Contains(dayDate))
+            {
+                foreach (MealPlan plan in dicMealPLan[dayDate].Values)
+                {
+                    setRecipes(plan);
+                }
+
+            }
+            
+          
             tcCalendar.SelectedTab = tpDay;
+            DateTime date = DateTime.Parse(((MealPlan)(((Control)sender).Tag)).date);
+
+            lblDay.Text = $"{date.DayOfWeek} {date.Month}/{date.Day}";
+            
         }
 
         private void Calendar_Load(object sender, EventArgs e)
@@ -259,7 +302,7 @@ namespace Shopping_List_Tracker
 
         private void btnClose_Click(object sender, EventArgs e)
         {
-            save();
+            savesMealPlans();
             this.Close();
         }
 
@@ -267,16 +310,19 @@ namespace Shopping_List_Tracker
         {
             savesMealPlans();
             weekView = true;
+            functionForWeek();
             formatDates(-7);
+            setWeekView();
         }
 
         private void btnWeekNext_Click(object sender, EventArgs e)
         {
             savesMealPlans();
             weekView = true;
-            formatDates(-7);
+            functionForWeek();
+            formatDates(7);
+            setWeekView();
 
-        
         }
 
         private Recipe getRecipeFromList(string recipeName)
@@ -322,26 +368,22 @@ namespace Shopping_List_Tracker
 
             weekView = false;
             formatDates(-1);
-            
-           
-            if (System.IO.File.Exists(fullPathToFile))
-            {
-                if (flpList.Controls.Count > 0)
-                {
-                    for(int i = flpList.Controls.Count; i > 0; i--)
-                    {
-                        flpList.Controls.RemoveAt(i - 1);
-                    }
-                }
 
+
+
+            function();
+            if (dicMealPLan.Keys.Contains(dayDate))
+            {
+               
                 foreach (MealPlan mealplan in dicMealPLan[dayDate].Values)
                 {
-                    setRecipes(mealplan);                   
+                    setRecipes(mealplan);
                 }
 
-                
-
             }
+
+
+
 
         }
 
@@ -350,17 +392,11 @@ namespace Shopping_List_Tracker
             savesMealPlans();
             weekView = false;
             formatDates(1);
-            
-            if (flpList.Controls.Count > 0)
-            {
-                for (int i = flpList.Controls.Count; i > 0; i--)
-                {
-                    flpList.Controls.RemoveAt(i - 1);
 
-                }
-            }
+            function();
             if (dicMealPLan.Keys.Contains(dayDate))
             {
+                
                 foreach (MealPlan mealplan in dicMealPLan[dayDate].Values)
                 {
                     setRecipes(mealplan);
@@ -388,7 +424,8 @@ namespace Shopping_List_Tracker
 
  
             recipeList = JsonSerializer.Deserialize<List<Recipe>>(tempString);
-      
+
+            setWeekView();
         }
 
         private void btnCreate_Click(object sender, EventArgs e)
@@ -451,7 +488,7 @@ namespace Shopping_List_Tracker
             {
                 foreach (MealPlan mealPlan in dictionary.Values)
                 {
-                    if ((DateTime.Parse(mealPlan.date).CompareTo(new DateTime(2021,10,01)) >= 0))
+                    if ((DateTime.Parse(mealPlan.date).CompareTo(DateTime.Today) >= 0))
                     {
                         foreach (Recipe recipe in recipeList)
                         {
@@ -544,8 +581,57 @@ namespace Shopping_List_Tracker
             
         }
 
-     
+        private void tcCalendar_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            savesMealPlans();
+            if(((TabControl)sender).SelectedTab.Name.Equals(tpDay.Name))
+            {
+                weekView = false;
+                function();
+                if (dicMealPLan.Keys.Contains(dayDate))
+                {
+                    foreach (MealPlan mealPlan in dicMealPLan[dayDate].Values)
+                    {
 
-        
+                        setRecipes(mealPlan);
+                    }
+                }
+                   
+            }
+            else
+            {
+                functionForWeek();
+                setWeekView();
+                
+            }
+        }
+
+        private void setWeekDayView(DateTime date)
+        {
+            weekView = true;
+            if (dicMealPLan.Keys.Contains(date))
+            {
+                function();
+                foreach (MealPlan mealPlan in dicMealPLan[date].Values)
+                {
+                    setRecipes(mealPlan);
+                }
+            }     
+           
+        }
+
+        private void setWeekView()
+        {
+            weekView = true;
+            for (int i = 0; i < 7; i++)
+            {
+                setWeekDayView(this.date.AddDays(i));
+            }
+        }
+
+        private void tcCalendar_Enter(object sender, EventArgs e)
+        {
+           
+        }
     }
 }
