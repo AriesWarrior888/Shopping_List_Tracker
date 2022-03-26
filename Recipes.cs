@@ -52,7 +52,11 @@ namespace Shopping_List_Tracker
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            //implement soon
+            Calendar frmCalendar = new Calendar();
+            frmCalendar.weekView = true;
+            frmCalendar.setRecipes(new MealPlan(recipeValues[(Guid)(flpList.Controls[flpList.Controls.IndexOf((Control)sender) - 2].Tag)], 0, DateTime.Today.ToString()));
+            frmCalendar.dicMealPLan[DateTime.Today].Add((Guid)(flpList.Controls[flpList.Controls.IndexOf((Control)sender) - 2].Tag), new MealPlan(recipeValues[(Guid)(flpList.Controls[flpList.Controls.IndexOf((Control)sender) - 2].Tag)], 0, DateTime.Today.ToString()));
+            frmCalendar.ShowDialog();
         }
 
         private void btnDelete_Click(object sender, EventArgs e)

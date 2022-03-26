@@ -37,13 +37,17 @@ namespace Shopping_List_Tracker
             this.btnCalendar = new System.Windows.Forms.Button();
             this.btnRecipe = new System.Windows.Forms.Button();
             this.lblTitle = new System.Windows.Forms.Label();
-            this.grdPlan = new System.Windows.Forms.DataGridView();
+            this.tcToday = new System.Windows.Forms.TabControl();
+            this.tpDay = new System.Windows.Forms.TabPage();
+            this.lblDate = new System.Windows.Forms.Label();
+            this.flpList = new System.Windows.Forms.FlowLayoutPanel();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.grdPlan)).BeginInit();
+            this.tcToday.SuspendLayout();
+            this.tpDay.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -89,7 +93,7 @@ namespace Shopping_List_Tracker
             // 
             // splitContainer1.Panel2
             // 
-            this.splitContainer1.Panel2.Controls.Add(this.grdPlan);
+            this.splitContainer1.Panel2.Controls.Add(this.tcToday);
             this.splitContainer1.Size = new System.Drawing.Size(815, 450);
             this.splitContainer1.SplitterDistance = 183;
             this.splitContainer1.TabIndex = 8;
@@ -133,17 +137,44 @@ namespace Shopping_List_Tracker
             this.lblTitle.TabIndex = 0;
             this.lblTitle.Text = "Title";
             // 
-            // grdPlan
+            // tcToday
             // 
-            this.grdPlan.AllowUserToAddRows = false;
-            this.grdPlan.AllowUserToDeleteRows = false;
-            this.grdPlan.AllowUserToOrderColumns = true;
-            this.grdPlan.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.grdPlan.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.grdPlan.Location = new System.Drawing.Point(0, 0);
-            this.grdPlan.Name = "grdPlan";
-            this.grdPlan.Size = new System.Drawing.Size(628, 450);
-            this.grdPlan.TabIndex = 0;
+            this.tcToday.Controls.Add(this.tpDay);
+            this.tcToday.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tcToday.Location = new System.Drawing.Point(0, 0);
+            this.tcToday.Name = "tcToday";
+            this.tcToday.SelectedIndex = 0;
+            this.tcToday.Size = new System.Drawing.Size(628, 450);
+            this.tcToday.TabIndex = 0;
+            // 
+            // tpDay
+            // 
+            this.tpDay.Controls.Add(this.flpList);
+            this.tpDay.Controls.Add(this.lblDate);
+            this.tpDay.Location = new System.Drawing.Point(4, 22);
+            this.tpDay.Name = "tpDay";
+            this.tpDay.Padding = new System.Windows.Forms.Padding(3);
+            this.tpDay.Size = new System.Drawing.Size(620, 424);
+            this.tpDay.TabIndex = 0;
+            this.tpDay.Text = "Today\'s Calendar";
+            this.tpDay.UseVisualStyleBackColor = true;
+            // 
+            // lblDate
+            // 
+            this.lblDate.AutoSize = true;
+            this.lblDate.Location = new System.Drawing.Point(315, 58);
+            this.lblDate.Name = "lblDate";
+            this.lblDate.Size = new System.Drawing.Size(35, 13);
+            this.lblDate.TabIndex = 0;
+            this.lblDate.Text = "label1";
+            // 
+            // flpList
+            // 
+            this.flpList.AutoScroll = true;
+            this.flpList.Location = new System.Drawing.Point(136, 74);
+            this.flpList.Name = "flpList";
+            this.flpList.Size = new System.Drawing.Size(384, 290);
+            this.flpList.TabIndex = 1;
             // 
             // LandingPage
             // 
@@ -163,7 +194,9 @@ namespace Shopping_List_Tracker
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.grdPlan)).EndInit();
+            this.tcToday.ResumeLayout(false);
+            this.tpDay.ResumeLayout(false);
+            this.tpDay.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -178,7 +211,10 @@ namespace Shopping_List_Tracker
         private System.Windows.Forms.Button btnCalendar;
         private System.Windows.Forms.Button btnRecipe;
         private System.Windows.Forms.Label lblTitle;
-        private System.Windows.Forms.DataGridView grdPlan;
+        private System.Windows.Forms.TabControl tcToday;
+        private System.Windows.Forms.TabPage tpDay;
+        private System.Windows.Forms.FlowLayoutPanel flpList;
+        private System.Windows.Forms.Label lblDate;
     }
 }
 

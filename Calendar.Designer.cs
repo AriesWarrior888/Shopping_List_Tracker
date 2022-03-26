@@ -375,7 +375,7 @@ namespace Shopping_List_Tracker
 
         #endregion
         private System.Windows.Forms.SplitContainer splitContainer1;
-        private System.Windows.Forms.TabControl tcCalendar;
+        public System.Windows.Forms.TabControl tcCalendar;
         private System.Windows.Forms.TabPage tpWeek;
         private System.Windows.Forms.TabPage tpDay;
         private System.Windows.Forms.Label lblTitle;

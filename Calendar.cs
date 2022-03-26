@@ -19,7 +19,7 @@ namespace Shopping_List_Tracker
         private readonly string fileName = "calendarStorage.Json";
         private string jsonString = string.Empty;
         private Dictionary<string, FlowLayoutPanel> weekFlpList= new Dictionary<string, FlowLayoutPanel>();
-        private Dictionary<DateTime, Dictionary<Guid, MealPlan>> dicMealPLan = new Dictionary<DateTime, Dictionary<Guid, MealPlan>>();
+        public Dictionary<DateTime, Dictionary<Guid, MealPlan>> dicMealPLan = new Dictionary<DateTime, Dictionary<Guid, MealPlan>>();
 
         //Located on the sunday of the week
         public DateTime date = DateTime.Today;
@@ -60,6 +60,7 @@ namespace Shopping_List_Tracker
 
 
             formatDates(0);
+
             
         }
         
@@ -336,6 +337,7 @@ namespace Shopping_List_Tracker
             }
             return null;
         }
+
         private void savesMealPlans()
         {
             if (flpList.Controls.Count > 0)
