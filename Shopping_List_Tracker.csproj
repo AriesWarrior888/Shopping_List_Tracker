@@ -86,7 +86,6 @@
     <Compile Include="Classes\Recipe.cs" />
     <Compile Include="Events\ReturnBackToRecipe.cs" />
     <Compile Include="Classes\MealPlan.cs" />
-    <Compile Include="Classes\MultiplePlans.cs" />
     <Compile Include="Service\GenerateRecipe.cs" />
     <Compile Include="Service\FileManager.cs" />
     <Compile Include="Inventory.cs">

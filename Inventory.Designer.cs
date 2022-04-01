@@ -33,6 +33,9 @@ namespace Shopping_List_Tracker
             this.flpInventory = new System.Windows.Forms.FlowLayoutPanel();
             this.btnAdd = new System.Windows.Forms.Button();
             this.btnClose = new System.Windows.Forms.Button();
+            this.lblIngName = new System.Windows.Forms.Label();
+            this.lblNum = new System.Windows.Forms.Label();
+            this.lblType = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // lblInventory
@@ -75,11 +78,41 @@ namespace Shopping_List_Tracker
             this.btnClose.UseVisualStyleBackColor = true;
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
+            // lblIngName
+            // 
+            this.lblIngName.AutoSize = true;
+            this.lblIngName.Location = new System.Drawing.Point(165, 37);
+            this.lblIngName.Name = "lblIngName";
+            this.lblIngName.Size = new System.Drawing.Size(85, 13);
+            this.lblIngName.TabIndex = 4;
+            this.lblIngName.Text = "Ingredient Name";
+            // 
+            // lblNum
+            // 
+            this.lblNum.AutoSize = true;
+            this.lblNum.Location = new System.Drawing.Point(404, 38);
+            this.lblNum.Name = "lblNum";
+            this.lblNum.Size = new System.Drawing.Size(103, 13);
+            this.lblNum.TabIndex = 5;
+            this.lblNum.Text = "Number In Inventory";
+            // 
+            // lblType
+            // 
+            this.lblType.AutoSize = true;
+            this.lblType.Location = new System.Drawing.Point(544, 38);
+            this.lblType.Name = "lblType";
+            this.lblType.Size = new System.Drawing.Size(31, 13);
+            this.lblType.TabIndex = 6;
+            this.lblType.Text = "Type";
+            // 
             // Inventory
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.lblType);
+            this.Controls.Add(this.lblNum);
+            this.Controls.Add(this.lblIngName);
             this.Controls.Add(this.btnClose);
             this.Controls.Add(this.btnAdd);
             this.Controls.Add(this.flpInventory);
@@ -97,5 +130,8 @@ namespace Shopping_List_Tracker
         private System.Windows.Forms.FlowLayoutPanel flpInventory;
         private System.Windows.Forms.Button btnAdd;
         private System.Windows.Forms.Button btnClose;
+        private System.Windows.Forms.Label lblIngName;
+        private System.Windows.Forms.Label lblNum;
+        private System.Windows.Forms.Label lblType;
     }
 }

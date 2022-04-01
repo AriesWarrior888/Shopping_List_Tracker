@@ -420,7 +420,7 @@ namespace Shopping_List_Tracker
             else
             {
                 MessageBox.Show("Please set up a recipe before using the calendar");
-           
+                return;
             }
 
 
@@ -560,7 +560,7 @@ namespace Shopping_List_Tracker
             {
                 if(pair.Value > 0 )
                 {
-                    output = output + pair.Key + ":" + pair.Value + "\n";
+                    output = output + pair.Key + ":" + pair.Value + " needed\n";
                 }
                 else
                 {

@@ -33,6 +33,8 @@ namespace Shopping_List_Tracker
             this.btnCreateRow = new System.Windows.Forms.Button();
             this.lblTitle = new System.Windows.Forms.Label();
             this.btnClose = new System.Windows.Forms.Button();
+            this.lblRec = new System.Windows.Forms.Label();
+            this.lblDesc = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // flpList
@@ -72,11 +74,31 @@ namespace Shopping_List_Tracker
             this.btnClose.UseVisualStyleBackColor = true;
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
+            // lblRec
+            // 
+            this.lblRec.AutoSize = true;
+            this.lblRec.Location = new System.Drawing.Point(171, 28);
+            this.lblRec.Name = "lblRec";
+            this.lblRec.Size = new System.Drawing.Size(41, 13);
+            this.lblRec.TabIndex = 4;
+            this.lblRec.Text = "Recipe";
+            // 
+            // lblDesc
+            // 
+            this.lblDesc.AutoSize = true;
+            this.lblDesc.Location = new System.Drawing.Point(268, 26);
+            this.lblDesc.Name = "lblDesc";
+            this.lblDesc.Size = new System.Drawing.Size(60, 13);
+            this.lblDesc.TabIndex = 5;
+            this.lblDesc.Text = "Description";
+            // 
             // Recipes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.lblDesc);
+            this.Controls.Add(this.lblRec);
             this.Controls.Add(this.btnClose);
             this.Controls.Add(this.lblTitle);
             this.Controls.Add(this.btnCreateRow);
@@ -94,5 +116,7 @@ namespace Shopping_List_Tracker
         private System.Windows.Forms.Button btnCreateRow;
         private System.Windows.Forms.Label lblTitle;
         private System.Windows.Forms.Button btnClose;
+        private System.Windows.Forms.Label lblRec;
+        private System.Windows.Forms.Label lblDesc;
     }
 }

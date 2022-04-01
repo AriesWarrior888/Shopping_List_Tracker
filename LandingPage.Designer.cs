@@ -39,8 +39,8 @@ namespace Shopping_List_Tracker
             this.lblTitle = new System.Windows.Forms.Label();
             this.tcToday = new System.Windows.Forms.TabControl();
             this.tpDay = new System.Windows.Forms.TabPage();
-            this.lblDate = new System.Windows.Forms.Label();
             this.flpList = new System.Windows.Forms.FlowLayoutPanel();
+            this.lblDate = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -159,15 +159,6 @@ namespace Shopping_List_Tracker
             this.tpDay.Text = "Today\'s Calendar";
             this.tpDay.UseVisualStyleBackColor = true;
             // 
-            // lblDate
-            // 
-            this.lblDate.AutoSize = true;
-            this.lblDate.Location = new System.Drawing.Point(315, 58);
-            this.lblDate.Name = "lblDate";
-            this.lblDate.Size = new System.Drawing.Size(35, 13);
-            this.lblDate.TabIndex = 0;
-            this.lblDate.Text = "label1";
-            // 
             // flpList
             // 
             this.flpList.AutoScroll = true;
@@ -175,6 +166,15 @@ namespace Shopping_List_Tracker
             this.flpList.Name = "flpList";
             this.flpList.Size = new System.Drawing.Size(384, 290);
             this.flpList.TabIndex = 1;
+            // 
+            // lblDate
+            // 
+            this.lblDate.AutoSize = true;
+            this.lblDate.Location = new System.Drawing.Point(315, 58);
+            this.lblDate.Name = "lblDate";
+            this.lblDate.Size = new System.Drawing.Size(28, 13);
+            this.lblDate.TabIndex = 0;
+            this.lblDate.Text = "date";
             // 
             // LandingPage
             // 

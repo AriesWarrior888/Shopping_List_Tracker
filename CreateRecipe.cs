@@ -101,14 +101,14 @@ namespace Shopping_List_Tracker
             {
                 if (control.Text.Equals(""))
                 {
-                    MessageBox.Show($"field {control.Name} is empty");
+                    MessageBox.Show($"Field {control.Name} is empty");
                     return;
                 }
                 
             }
             if (!Regex.IsMatch(controlList[1].Text, @"^[0-9]+$"))
             {
-                MessageBox.Show("field Recipe Name has non-numbers");
+                MessageBox.Show("Field Serving Count has non-numbers");
                 return;
             }
             if (!Regex.IsMatch(controlList[4].Text, @"^[0-9]+$"))

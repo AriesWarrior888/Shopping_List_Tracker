@@ -52,11 +52,20 @@ namespace Shopping_List_Tracker
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            Calendar frmCalendar = new Calendar();
-            frmCalendar.weekView = true;
-            frmCalendar.setRecipes(new MealPlan(recipeValues[(Guid)(flpList.Controls[flpList.Controls.IndexOf((Control)sender) - 2].Tag)], 0, DateTime.Today.ToString()));
-            frmCalendar.dicMealPLan[DateTime.Today].Add((Guid)(flpList.Controls[flpList.Controls.IndexOf((Control)sender) - 2].Tag), new MealPlan(recipeValues[(Guid)(flpList.Controls[flpList.Controls.IndexOf((Control)sender) - 2].Tag)], 0, DateTime.Today.ToString()));
-            frmCalendar.ShowDialog();
+            if (System.IO.File.Exists(fullPathToFile) && System.IO.File.Exists(System.IO.Path.Combine(Program.ApplicationDirectory, "calendarStorage.Json")))
+            {
+                Calendar frmCalendar = new Calendar();
+                frmCalendar.weekView = true;
+                frmCalendar.setRecipes(new MealPlan(recipeValues[(Guid)(flpList.Controls[flpList.Controls.IndexOf((Control)sender) - 2].Tag)], 0, DateTime.Today.ToString()));
+                frmCalendar.dicMealPLan[DateTime.Today].Add((Guid)(flpList.Controls[flpList.Controls.IndexOf((Control)sender) - 2].Tag), new MealPlan(recipeValues[(Guid)(flpList.Controls[flpList.Controls.IndexOf((Control)sender) - 2].Tag)], 0, DateTime.Today.ToString()));
+                frmCalendar.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("No Calendar found, please create the calendar");
+                return;
+            }
+           
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
