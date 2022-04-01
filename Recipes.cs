@@ -8,6 +8,13 @@ namespace Shopping_List_Tracker
 {
     public partial class Recipes : Form
     {
+        /*
+            [4]"Regex Class (System)”, Docs.microsoft.com, 2022. [Online]. Available: https://docs.microsoft.com/en-us/dotnet/api/system.text.regularexpressions.regex?view=net-6.0. [Accessed: 07- Mar- 2022].
+            
+            [2]"JsonSerializer Class (System.Text.Json)", Docs.microsoft.com, 2022. [Online]. Available: https://docs.microsoft.com/en-us/dotnet/api/system.text.json.jsonserializer?view=net-6.0. [Accessed: 07- Mar- 2022].
+
+            [1]"Guid Struct (System)", Docs.microsoft.com, 2022. [Online]. Available: https://docs.microsoft.com/en-us/dotnet/api/system.guid?view=net-6.0. [Accessed: 07- Mar- 2022].
+        */
         #region Declared Variables
         public List<Control> updatedControlList = new List<Control>();
         public List<Control> currentControlList = new List<Control>();

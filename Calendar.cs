@@ -14,6 +14,13 @@ namespace Shopping_List_Tracker
 {
     public partial class Calendar : Form
     {
+        /*
+         *  [3]"DateTime Struct (System)", Docs.microsoft.com, 2022. [Online]. Available: https://docs.microsoft.com/en-us/dotnet/api/system.datetime?view=net-6.0. [Accessed: 07- Mar- 2022].
+
+            [2]"JsonSerializer Class (System.Text.Json)", Docs.microsoft.com, 2022. [Online]. Available: https://docs.microsoft.com/en-us/dotnet/api/system.text.json.jsonserializer?view=net-6.0. [Accessed: 07- Mar- 2022].
+
+            [1]"Guid Struct (System)", Docs.microsoft.com, 2022. [Online]. Available: https://docs.microsoft.com/en-us/dotnet/api/system.guid?view=net-6.0. [Accessed: 07- Mar- 2022].
+        */
         #region Variables
         private string fullPathToFile  = string.Empty;
         private readonly string fileName = "calendarStorage.Json";
@@ -362,6 +369,10 @@ namespace Shopping_List_Tracker
                 save(); 
 
             }
+            else if(flpList.Controls.Count == 0 )
+            {
+                dicMealPLan.Remove(dayDate);
+            }
             
         }
         private void btnDayPrevious_Click(object sender, EventArgs e)
@@ -585,7 +596,7 @@ namespace Shopping_List_Tracker
 
         private void tcCalendar_SelectedIndexChanged(object sender, EventArgs e)
         {
-            savesMealPlans();
+            
             if(((TabControl)sender).SelectedTab.Name.Equals(tpDay.Name))
             {
                 weekView = false;
@@ -602,6 +613,7 @@ namespace Shopping_List_Tracker
             }
             else
             {
+                savesMealPlans();
                 functionForWeek();
                 setWeekView();
                 
